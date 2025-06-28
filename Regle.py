@@ -10,6 +10,7 @@ class Regle(Polygone):
 
     def __init__(self,theta,  h):
         super().__init__(q0.rotation(theta).sommets)
+        #super().draw(fill='yellow')
         
         self.theta = theta
         self.h   = h
@@ -53,8 +54,7 @@ class Regle(Polygone):
         plt.xlim(xmin, xmax)
 
         plt.axis('off')        
-        ax.fill(self.xdata, self.ydata, color, alpha=0.30)        
-        super().draw()
+        super().draw(color=color)
         title = 'Équilbre stable, densité {:8.6f}, $\\theta$= {:8.6f}°'.format(self.densite,degrees(self.theta))
         if self.P.x < -1e-8:
             title = 'Déséquilibre, pivote vers la droite'

@@ -19,15 +19,15 @@ class Polygone(Forme2D):
         self.sommets.append(point)
         self.n += 1
 
-    def draw(self, dx=0.15, dy=0.15, fill=False):
+    def draw(self, dx=0.15, dy=0.15, color=None):
         plt.axis('equal')
         xdata   = [p.x for p in self.sommets]
         ydata   = [p.y for p in self.sommets]
         xdata.append(self.sommets[0].x)
         ydata.append(self.sommets[0].y)
         plt.plot(xdata, ydata)
-        if fill:
-            plt.fill(xdata, ydata, 'yellow', alpha=0.30)          
+        if not color is None:
+            plt.fill(xdata, ydata, color, alpha=0.30)          
         for p in self.sommets:
             p.draw(dx, dy)
         return
