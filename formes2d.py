@@ -23,7 +23,7 @@ class Forme2D(ABC):
         pass
 
     @abstractmethod
-    def translation(self, dx, dy):
+    def translate(self, dx, dy):
         pass
 
     @abstractmethod

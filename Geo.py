@@ -29,10 +29,10 @@ class Point: # Espace affine euclidien de dimension 2
             return f"{self.nom}({self.x},{self.y})"
             
 
-    def draw(self, ax, dx=0.0, dy=0.0, s=20, marker = 'o', color= 'blue', textcolor = 'blue'):
+    def draw(self, ax, dx=0.0, dy=0.0, s=20, color= 'blue', textcolor = 'blue'):
         plt.scatter(self.x, self.y,  s=s)
         if not self.nom is None:
-            plt.text(self.x + dx, self.y, self.nom)
+            plt.text(self.x + dx, self.y+dy, self.nom, color=textcolor)
 
     def coords(self):
         return (self.x, self.y)
@@ -61,7 +61,7 @@ class Point: # Espace affine euclidien de dimension 2
     #    ''' Renvoie l'image de self par la rotation d'angle theta autour de (0,0) '''
     #    return Point(x + (u.x-x) * cos(theta) - (u.y-y) * sin(theta), y + (u.x-x) * sin(theta) + (u.y-y) * cos(theta))   
 
-    def translation(self, dx, dy):
+    def translate(self, dx, dy):
         self.x += dx
         self.y += dy
 

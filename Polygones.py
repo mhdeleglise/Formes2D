@@ -8,11 +8,7 @@ class Polygone(Forme2D):
             sommets = []
         self.sommets = sommets
         self.n       = len(sommets)
-        self.xdata   = [p.x for p in self.sommets]
-        self.ydata   = [p.y for p in self.sommets]
-        self.xdata.append(sommets[0].x)
-        self.ydata.append(sommets[0].y)
-
+ 
     def __repr__(self):
         res = ''
         for p in self.sommets:
@@ -25,11 +21,15 @@ class Polygone(Forme2D):
 
     def draw(self, dx=0.15, dy=0.15, fill=False):
         plt.axis('equal')
-        plt.plot(self.xdata, self.ydata)
+        xdata   = [p.x for p in self.sommets]
+        ydata   = [p.y for p in self.sommets]
+        xdata.append(self.sommets[0].x)
+        ydata.append(self.sommets[0].y)
+        plt.plot(xdata, ydata)
         if fill:
-            plt.fill(self.xdata, self.ydata, 'yellow', alpha=0.30)          
-        #for p in self.sommets:
-        #    p.draw(dx, dy)
+            plt.fill(xdata, ydata, 'yellow', alpha=0.30)          
+        for p in self.sommets:
+            p.draw(dx, dy)
         return
 
     def coords(self,i):
@@ -44,17 +44,17 @@ class Polygone(Forme2D):
         ''' Rotation en place '''
         for u in self.sommets:
             u = u.rotate(theta)
-        self.xdata  = [p.x for p in self.sommets] # La liste des abscisses
-        self.ydata  = [p.y for p in self.sommets] # La liste des ordonnées
-        self.xdata.append(self.xdata[0])
-        self.ydata.append(self.ydata[0])
 
-    def inclinaison(self, theta):
-        return
-    
-    def translation(self,v):
+    def translate(self, dx, dy):
         ''' Renvoie un autre polygone '''
-        return Polygone(*[Point.translate(p,v) for p in self.sommets])
+        for p in self.sommets:
+            p.translate(dx,dy)
+        #return Polygone(*[Point.translate(p,v) for p in self.sommets])
+
+    def perimetre(self):
+        n = len(self.sommets)
+        p = self.sommets
+        return p[0].distance(p[-1]) + sum ([p[i].distance(p[i+1]) for i in range(n-1)]) 
 
     def aire(self):
         res = 0.0
@@ -80,9 +80,7 @@ class Triangle(Polygone):
     def __init__(self, A, B, C):
         self.size = 3
         self.sommets=[Point(*A), Point(*B),Point(*C)]
-        self.xdata = [p.x for p in self.sommets]
-        self.ydata = [p.y for p in self.sommets]
-
+ 
     def __repr__(self):
         return 'Triangle' + str(self.sommets)
 
