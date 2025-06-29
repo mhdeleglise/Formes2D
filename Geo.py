@@ -29,7 +29,7 @@ class Point: # Espace affine euclidien de dimension 2
             return f"{self.nom}({self.x},{self.y})"
             
 
-    def draw(self, ax, dx=0.0, dy=0.0, s=20, color= 'blue', textcolor = 'blue'):
+    def draw(self, ax, dx=0.0, dy=0.0, s=20, color= 'blue', textcolor = 'blue', *others):
         plt.scatter(self.x, self.y,  s=s)
         if not self.nom is None:
             ax.text(self.x + dx, self.y+dy, self.nom, color=textcolor,clip_on=True)
