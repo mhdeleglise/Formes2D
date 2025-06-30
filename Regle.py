@@ -65,13 +65,13 @@ class Regle(Polygone):
         fig.suptitle(title,color="green", fontsize = 16)
         #for p in self.sommets:
         #    p.draw()
-        self.E.draw(ax, dx= -0.06, dy=-0.01, s=10, color='red', textcolor='blue')
-        self.F.draw(ax, dx= -0.06, dy=-0.01, s=10, color='red', textcolor='blue')
-        self.P.draw(ax, dx= -0.06, dy=-0.01, s=10, color='red', textcolor='red')
-        self.H.draw(ax, dx= -0.06, dy=-0.01, s=8, color='blue', textcolor='blue')        
+        self.E.draw(ax, dx= -0.06, dy=-0.01, s=10, color='red', namecolor='blue')
+        self.F.draw(ax, dx= -0.06, dy=-0.01, s=10, color='red', namecolor='blue')
+        self.P.draw(ax, dx= -0.06, dy=-0.01, s=10, color='red', namecolor='red')
+        self.H.draw(ax, dx= -0.06, dy=-0.01, s=8, color='blue', namecolor='blue')        
         if abs(self.P.x) < 1e-9:
-            self.M.draw(ax, dx= -0.06, dy=-0.01, s=8, color='red', textcolor='red')
-        O.draw(ax, dx=0.04,        dy=-0.01, color='blue', textcolor='blue',s=8)
+            self.M.draw(ax, dx= -0.06, dy=-0.01, s=8, color='red', namecolor='red')
+        O.draw(ax, dx=0.04,        dy=-0.01, color='blue', namecolor='blue',s=8)
         plt.axhspan(ymin, self.h, color='blue', alpha=0.1)
         line1  = 'Densité={:12.9f}             $\\theta$= {:8.6f}°            OH= {:10.9f}'.format(self.densite, degrees(self.theta), self.h)  
         if self.equilibre:
