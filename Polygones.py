@@ -68,13 +68,13 @@ class Polygone(Forme2D):
         s = 0
         pts = []
         aires = []
-        for i in range(self.n-2):
+        for i in range(self.n-2):    
             tr = Triangle(self.coords(0), self.coords(i+1), self.coords(i+2))
             a  = tr.aire()
             g  = tr.centre()
             s += a
-            gres +=  a*g
-            return gres/s
+            gres =  gres + g*a
+        return gres/s
             
 class Triangle(Polygone): 
     def __init__(self, A, B, C):
