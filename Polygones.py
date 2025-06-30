@@ -40,16 +40,17 @@ class Polygone(Forme2D):
         ''' Renvoie un autre polygone '''
         return Polygone([rotation(u,theta,A) for u in self.sommets])
 
-    def rotate(self, theta):
-        ''' Rotation en place '''
+    def rotate(self, theta, A=0):
+        ''' Rotation en place, chaque sommet est remplacé par son imagge
+        par la rotation de theta aoutour de A'''
         for u in self.sommets:
             u = u.rotate(theta)
 
-    def translate(self, dx, dy):
-        ''' Renvoie un autre polygone '''
+    def translate(self, V):
+        ''' Translation de self par le Vecteur V
+        tous les sommets de self sont translatés '''
         for p in self.sommets:
-            p.translate(dx,dy)
-        #return Polygone(*[Point.translate(p,v) for p in self.sommets])
+            p.translate(V)
 
     def perimetre(self):
         n = len(self.sommets)
@@ -73,8 +74,8 @@ class Polygone(Forme2D):
             a  = tr.aire()
             g  = tr.centre()
             s += a
-            gres = gres + Point.times(g,a)
-        return Point.times(gres,1/s)
+            gres +=  a*g
+            return gres/s
             
 class Triangle(Polygone): 
     def __init__(self, A, B, C):

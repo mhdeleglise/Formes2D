@@ -51,7 +51,7 @@ class Segment():
         self.B = B
 
     def __repr__(self):
-        return f"Point({self.A}, {self.B})"        
+        return f"Segment({self.A}, {self.B})"        
     
     def draw(self, ax, **kwds):
         ax.plot([self.A.x,self.B.x],[self.A.y,self.B.y],**kwds)

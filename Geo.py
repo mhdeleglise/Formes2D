@@ -11,9 +11,13 @@ class Vecteur:
         ''' produit scalaire'''
         return u.x * v.x + u.y * v.y
 
+    def __xor__(self,v):
+        ''' Le produit vectoriel '''
+        return self.x * v.y - v.x * self.y
+
     def det(u,v):
-        ''' Le determinant ''' 
-        return v.x * u.y - u.x * v.y
+        ''' Le determinant , même chose que le précédent ''' 
+        return u.x * v.y - v.x * u.y
 
 class Point: # Espace affine euclidien de dimension 2
     
@@ -29,7 +33,7 @@ class Point: # Espace affine euclidien de dimension 2
             return f"{self.nom}({self.x},{self.y})"
             
 
-    def draw(self, ax, dx=0.0, dy=0.0, color= 'blue', namecolor = 'blue', **kwds):
+    def draw(self, ax, dx=0.1, dy=0.0, color= 'blue', namecolor = 'blue', **kwds):
         plt.scatter(self.x, self.y, color = color,  **kwds),
         if not self.nom is None:
             ax.text(self.x + dx, self.y+dy, self.nom, color=namecolor,clip_on=True)
@@ -41,6 +45,21 @@ class Point: # Espace affine euclidien de dimension 2
         
     def __add__(self,other):
         return Point(self.x + other.x, self.y + other.y)
+
+    def __iadd__(self,other):
+        return self.__add__(other)
+
+    def __mul__(self, scalar, name=None):
+        return Point(self.x * scalar, self.y * scalar, name)
+
+    def __rmul__(self, scalar, nom=""):
+        return self.__mul__(scalar, nom)  # permet d’écrire 0.5 * A
+
+    def __truediv__(self, scalar):
+        return Point(self.x / scalar, self.y / scalar)
+
+    def __sub__(self, other):
+        return Vecteur(self.x-other.x, self.y - other.y)
 
     def vecteur(self,other):
         return Vecteur(self.x-other.x, self.y - other.y)
@@ -63,9 +82,10 @@ class Point: # Espace affine euclidien de dimension 2
     #    ''' Renvoie l'image de self par la rotation d'angle theta autour de (0,0) '''
     #    return Point(x + (u.x-x) * cos(theta) - (u.y-y) * sin(theta), y + (u.x-x) * sin(theta) + (u.y-y) * cos(theta))   
 
-    def translate(self, dx, dy):
-        self.x += dx
-        self.y += dy
+    def translate(self, V):
+        ''' self est modifié '''
+        self.x += V.x
+        self.y += V.y
 
 O = Point(0,0)
 

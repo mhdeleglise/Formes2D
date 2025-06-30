@@ -107,6 +107,7 @@ def find(theta):
         qu, qv = Regle(theta,n/100), Regle(theta,(n+1)/100)
         if qu.P.x * qv.P.x < 0:
             return n
+    return 0
 
 def solution(theta, color = 'yellow', fname='nosave'):
     if abs(theta) < 1e-8:
