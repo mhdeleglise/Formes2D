@@ -59,6 +59,7 @@ class Point: # Espace affine euclidien de dimension 2
         return Point(self.x / scalar, self.y / scalar)
 
     def __sub__(self, other):
+        """ La différence A - B de deux points A et B est le vecteur de la translation qui envoie A sur B """
         return Vecteur(self.x-other.x, self.y - other.y)
 
     def vecteur(self,other):

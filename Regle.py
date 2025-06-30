@@ -88,7 +88,7 @@ class Regle(Polygone):
             plt.savefig(imagename)
         
 def rotation(self, theta):
-    O1 = (self.E+self.F).times(0.5)
+    O1 = (self.E+self.F)/2
     print("E,F,O1= ", E,FO1)
     return super().rotation(theta,O1)
 
