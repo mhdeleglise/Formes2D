@@ -16,8 +16,8 @@ class Cercle(Forme2D):
         cercle = plt.Circle((self.centre.x, self.centre.y), self.rayon, fill=False, color='green')
         ax.add_patch(cercle)
 
-    def translate(self, dx, dy):
-        self.centre.translate(dx, dy)
+    def translate(self, v):
+        self.centre.translate(v)
 
     def rotation(self, angle_degres, centre=None):
         self.centre.rotation(angle_degres, centre)

@@ -13,11 +13,10 @@ class Droite():
         print("Droite( ax+by avec a,b,c) = ",self.a,self.b,self.c)
     
     def draw(self,ax,**others):
+        xmin, xmax = plt.xlim() #ax.get_xlim()
         if self.b == 1:
-            x0, x1 = ax.get_xlim()
-            print("x0,x1= ", x0,x1)
-            y0, y1  = [-self.c - self.a * x for x in [x0, x1]]
-            ax.plot([x0,x1],[y0,y1], **others)
+            y0, y1  = [-self.c - self.a * x for x in [xmin, xmax]]
+            ax.plot([xmin,xmax],[y0,y1], **others)
         else:
             x = -self.c
             ax.axvline(x=x)
@@ -41,7 +40,7 @@ class DemiDroite():
 def droite(p, v):
     """ Droite définie par un point p et un vecteur v """
     x0, y0 = p
-    a, b   = v
+    a,  b  = v
     return Droite(b,-a,b*x0-a*y0)
     
     

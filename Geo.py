@@ -33,10 +33,10 @@ class Point: # Espace affine euclidien de dimension 2
             return f"{self.nom}({self.x},{self.y})"
             
 
-    def draw(self, ax, dx=0.1, dy=0.0, color= 'blue', namecolor = 'blue', **kwds):
+    def draw(self, ax, dx=0.05, dy=0.0, color= 'blue', namecolor = 'blue', **kwds):
         plt.scatter(self.x, self.y, color = color,  **kwds),
         if not self.nom is None:
-            ax.text(self.x + dx, self.y+dy, self.nom, color=namecolor,clip_on=True)
+            plt.text(self.x + dx, self.y+dy, self.nom, color=namecolor,clip_on=True)
         # if clipon_on == True text n'affiche pas en dehors des axes (ce qu'il fait
         # par défaut
 
