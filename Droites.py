@@ -29,8 +29,8 @@ class Droite():
         xmin, xmax = plt.xlim()
         ymin, ymax = plt.ylim()
 
-        label = others.get("label", self.__repr__())
-        
+        #label = others.get("label", self.__repr__())
+        label = others.get("label", self.str())
         if self.b == 1:
             y0, y1  = [-self.c - self.a * x for x in [xmin, xmax]]
             ax.plot([xmin,xmax],[y0,y1], **others)
