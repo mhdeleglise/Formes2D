@@ -1,25 +1,45 @@
 from formes2d import *
 import matplotlib.pyplot as plt
+import numpy as np
+
+def signe(x):
+    if x >=0:
+        return '+'
+    return '-'
 
 class Droite():
     def __init__(self, a, b, c):
-        """ La droite d'équation ax + by = c """
-        if b != 0:
-            self.a, self.b, self.c = a/b, 1, -c/b
-        else:
-            self.a, self.b, self.c =   1, 0, -c/b
+        """ La droite d'équation ax + by + c = 0 """
+        if b == 0:
+            self.a, self.b, self.c =   1, 0, c/a
+        else:  
+            self.a, self.b, self.c = a/b, 1, c/b         
             
+    def __repr__(self):
+        a,c = self.a, self.c
+        if self.b ==  0:
+            return "Droite x = {} {:.3f}".format(signe(-c), abs(c)) 
+        else:
+            return "Droite y = {} {:.3f} x {} {:.3f}".format(signe(-a), abs(a), signe(-c), abs(c))
+
     def str(self):
-        print("Droite( ax+by avec a,b,c) = ",self.a,self.b,self.c)
-    
+        return self.__repr__()[7:]
+        
     def draw(self,ax,**others):
-        xmin, xmax = plt.xlim() #ax.get_xlim()
+        xmin, xmax = plt.xlim()
+        ymin, ymax = plt.ylim()
+
+        label = others.get("label", self.__repr__())
+        
         if self.b == 1:
             y0, y1  = [-self.c - self.a * x for x in [xmin, xmax]]
             ax.plot([xmin,xmax],[y0,y1], **others)
         else:
             x = -self.c
-            ax.axvline(x=x)
+            ax.plot([x,x], [ymin,ymax])
+            y_vals = [ymin, ymax]
+            ax.plot([x, x], y_vals, **others)
+
 
 class DemiDroite():
     def __init__(self,A,V):
