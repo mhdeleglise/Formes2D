@@ -7,11 +7,8 @@ q0 = Polygone([Point(-1/2,1/2), Point(1/2,1/2), Point(1/2,-1/2),  Point(-1/2,-1/
 O  = Point(0,0,'O')
 
 class Regle(Polygone):
-
     def __init__(self,theta,  h):
         super().__init__(q0.rotation(theta).sommets)
-        #super().draw(fill='yellow')
-        
         self.theta = theta
         self.h   = h
         if theta == 0:
@@ -36,15 +33,12 @@ class Regle(Polygone):
         self.rM = Point.distance(self.E,self.F)**3/12/self.qi.aire() # Le rayon métacentrique
         self.M  = Point(0,self.rM + self.P.y,'M') # Le métacentre
         self.H  = Point(0,self.h,'H')
-        self.stable    = self.M.y >= 0        
+        self.stable = self.M.y >= 0        
 
     def __repr__(self):
-        ''' La représentation de ce polygone '''
         return 'Regle' + str(self.sommets) + 'd = ' + str(self.densite) + '   h = ' + str(self.h)
         
     def draw(self, axes= 'off', labels = False, center = True, color = "yellow", save = False):        
-        ''' Affiche l'équilibre d'inclinaison theta à la hauteur h '''
-
         fig, ax = plt.subplots(layout= 'constrained')
         fig.set_size_inches(8,5)        
         xm = 1.10
@@ -52,8 +46,6 @@ class Regle(Polygone):
         xmin, xmax = -xm, xm     
         plt.ylim(ymin, ymax)
         plt.xlim(xmin, xmax)
-
-        plt.axis('off')        
         super().draw(fillcolor=color)
         title = 'Équilbre stable, densité {:8.6f}, $\\theta$= {:8.6f}°'.format(self.densite,degrees(self.theta))
         if self.P.x < -1e-8:
@@ -63,8 +55,6 @@ class Regle(Polygone):
         elif self.M.y < 1e-9:
             title = 'Équilibre instable'
         fig.suptitle(title,color="green", fontsize = 16)
-        #for p in self.sommets:
-        #    p.draw()
         self.E.draw(ax, dx= -0.06, dy=-0.01, s=10, color='red', namecolor='blue')
         self.F.draw(ax, dx= -0.06, dy=-0.01, s=10, color='red', namecolor='blue')
         self.P.draw(ax, dx= -0.06, dy=-0.01, s=10, color='red', namecolor='red')
@@ -78,7 +68,6 @@ class Regle(Polygone):
             line2 = 'Ordonnée de M:  {:10.9f}'.format(self.M.y)
         else:
             line2 = 'Abscisse de P:  {:10.9f}'.format(self.P.x)
-            
         ax.text( -1.20, ymin+0.01, line1,color='blue',fontsize=11)
         ax.text( -0.46, ymin + 0.15, line2, color='blue',fontsize=11)
         plt.axis('equal')
