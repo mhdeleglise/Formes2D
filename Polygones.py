@@ -20,10 +20,6 @@ class Polygone(Forme2D):
         self.n += 1
 
     def draw(self, ax, dx=0.05, dy=0.05, color=None, namecolor=None, s = 10, **kwds):
-        print("In Polygones color = ",color)
-        #print("In Polygones.draw kwds = ")
-        #for u,v in kwds.items():
-        #    print(u,v)
         xdata   = [p.x for p in self.sommets]
         ydata   = [p.y for p in self.sommets]
         xdata.append(self.sommets[0].x)
@@ -31,7 +27,6 @@ class Polygone(Forme2D):
         plt.plot(xdata, ydata)
         if not color is None:
             plt.fill(xdata, ydata, color, alpha=0.30)  
-        #plt.fill(xdata, ydata, alpha=0.30)
         for p in self.sommets:
             p.draw(ax, dx, dy,s, color, namecolor, *kwds)
         return
