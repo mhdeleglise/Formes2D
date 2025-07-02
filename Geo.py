@@ -31,12 +31,16 @@ class Point: # Espace affine euclidien de dimension 2
             return f"({self.x},{self.y})"
         else:
             return f"{self.nom}({self.x},{self.y})"
-            
-
-    def draw(self, ax, dx=0.05, dy=0.0, color= 'blue', namecolor = 'blue', **kwds):
-        plt.scatter(self.x, self.y, color = color,  **kwds),
+    
+    def draw(self, ax, dx=0.05, dy=0.0, s = 10, color=None, namecolor='black', **kwds):
+        print("In Points.draw with a name: ", self.x, self.y, dx, dy)
+        print("kwds:  ")
+        for u, v in kwds.items():
+            print(u, ' = ' , v)
+        plt.scatter(self.x, self.y, s, color, **kwds),
         if not self.nom is None:
-            plt.text(self.x + dx, self.y+dy, self.nom, color=namecolor,clip_on=True)
+            print("x+dx= ", self.x+dx, "  y+dy= ", self.y + dy)
+            ax.text(self.x + dx, self.y + dy, self.nom, color=namecolor, clip_on=True)
         # if clipon_on == True text n'affiche pas en dehors des axes (ce qu'il fait
         # par défaut
 
@@ -87,6 +91,12 @@ class Point: # Espace affine euclidien de dimension 2
         ''' self est modifié '''
         self.x += V.x
         self.y += V.y
+
+def tracer_point(ax, p: Point, couleur='blue', **kwds):
+        ax.plot(p.x, p.y, 'o', color=couleur, **kwds)
+        if p.nom:
+            ax.text(p.x + 0.2, p.y + 0.1, p.nom, fontsize=12)           
+
 
 O = Point(0,0)
 

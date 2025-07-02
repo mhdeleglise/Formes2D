@@ -1,6 +1,7 @@
 from formes2d import *
 import matplotlib.pyplot as plt
 import numpy as np
+from Geo import *
 
 def signe(x):
     if x >=0:
@@ -40,6 +41,11 @@ class Droite():
             y_vals = [ymin, ymax]
             ax.plot([x, x], y_vals, **others)
 
+    def projection(self, P, nom = None):
+        """ Renvoie la projection orthogonale de P sur self """
+        a, b, c = self.a, self.b, self.c
+        lbd = -(a * P.x + b * P.y + c)/(a*a + b*b)
+        return Point(P.x + lbd * a, P.y + lbd * b, nom)
 
 class DemiDroite():
     def __init__(self,A,V):
@@ -74,6 +80,8 @@ class Segment():
     
     def draw(self, ax, **kwds):
         ax.plot([self.A.x,self.B.x],[self.A.y,self.B.y],**kwds)
+        self.A.draw(ax)
+        self.B.draw(ax)
     
         
         

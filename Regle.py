@@ -46,7 +46,7 @@ class Regle(Polygone):
         xmin, xmax = -xm, xm     
         plt.ylim(ymin, ymax)
         plt.xlim(xmin, xmax)
-        super().draw(fillcolor=color)
+        super().draw(color=color)
         title = 'Équilbre stable, densité {:8.6f}, $\\theta$= {:8.6f}°'.format(self.densite,degrees(self.theta))
         if self.P.x < -1e-8:
             title = 'Déséquilibre, pivote vers la droite'

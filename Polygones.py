@@ -19,16 +19,20 @@ class Polygone(Forme2D):
         self.sommets.append(point)
         self.n += 1
 
-    def draw(self, dx=0.05, dy=0.05, color=None, **kwds):
+    def draw(self, ax, dx=0.05, dy=0.05, color=None, namecolor=None, s = 10, **kwds):
+        print("In Polygones.draw kwds = ")
+        for u,v in kwds.items():
+            print(u,v)
         xdata   = [p.x for p in self.sommets]
         ydata   = [p.y for p in self.sommets]
         xdata.append(self.sommets[0].x)
         ydata.append(self.sommets[0].y)
         plt.plot(xdata, ydata)
-        if not color is None:
-            plt.fill(xdata, ydata, color, alpha=0.30,**kwds)          
+        #if not color is None:
+        #plt.fill(xdata, ydata, color, alpha=0.30)  
+        plt.fill(xdata, ydata, alpha=0.30)
         for p in self.sommets:
-            p.draw(dx, dy)
+            p.draw(ax, dx, dy,s, color, namecolor, *kwds)
         return
 
     def coords(self,i):
