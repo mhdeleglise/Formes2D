@@ -59,8 +59,8 @@ class Droite():
 
     def retournement(self, d):
         a,b,c,u,v,w = self.a, self.b, self.c, d.a, d.b, d.c
-        r2 = u**2 + v**2
-        return Droite(a - 2*(a*u+b*v)*u/r2, b-2*(a*u+b*v)*v/r2, c - 2*(a*u+b*v)/r2*w)
+        t = (a*u+b*v)/(u**2 + v**2)
+        return Droite(a - 2*t*u, b-2*t*v, c - 2*t*w)
 
 class DemiDroite():
     def __init__(self,A,V):
