@@ -80,8 +80,8 @@ class Segment():
     
     def draw(self, ax, **kwds):
         ax.plot([self.A.x,self.B.x],[self.A.y,self.B.y],**kwds)
-        self.A.draw(ax)
-        self.B.draw(ax)
+        #self.A.draw(ax)
+        #self.B.draw(ax)
     
         
         
