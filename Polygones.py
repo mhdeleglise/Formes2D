@@ -35,7 +35,7 @@ class Polygone(Forme2D):
         ''' Les coordonnées du ième sommet '''
         return self.sommets[i].coords()
 
-    def rotation(self, theta, A=O):
+    def rotation(self, theta, A=PointO):
         ''' Renvoie un autre polygone '''
         return Polygone([rotation(u,theta,A) for u in self.sommets])
 

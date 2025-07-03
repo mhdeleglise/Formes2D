@@ -47,6 +47,17 @@ class Droite():
         lbd = -(a * P.x + b * P.y + c)/(a*a + b*b)
         return Point(P.x + lbd * a, P.y + lbd * b, nom)
 
+    def parallele(self,P):
+        """ La parallèle à self passant par P """
+        a, b, x, y = self.a, self.b, P.x, P.y
+        return Droite(a, b, -(a*x+b*y))
+
+    def orthogonale(self,P):
+        """ La perpendiculaire à self passant par P """
+        a, b, x, y = self.a, self.b, P.x, P.y   
+        return Droite(-b, a, b*x - a*y)
+    
+
 class DemiDroite():
     def __init__(self,A,V):
         self.A = A

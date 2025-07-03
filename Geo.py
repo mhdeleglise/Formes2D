@@ -7,6 +7,9 @@ class Vecteur:
         self.x = x
         self.y = y  
 
+    def __repr__(self):
+        return f"Vecteur({self.x},{self.y})"      
+    
     def __mul__(u,v):
         ''' l'opérateur mul * est produit scalaire'''
         return u.x * v.x + u.y * v.y
@@ -19,7 +22,7 @@ class Vecteur:
         ''' Le determinant , même chose que le précédent ''' 
         return u.x * v.y - v.x * u.y
 
-class Point: # Espace affine euclidien de dimension 2
+class Point: #Espace affine euclidien de dimension 2
     
     def __init__(self, x=0, y=0, nom=None):
         self.nom = nom
@@ -77,9 +80,21 @@ class Point: # Espace affine euclidien de dimension 2
         self.x += V.x
         self.y += V.y
 
-O = Point(0,0)
+    def retournement(self, d, nom = None):
+        """ symétrique de self par rapport à la droite d """
+        a, b, c, x, y  = d.a, d.b, d.c, self.x, self.y
+        t = -(a*x + b*y + c)/(a*a + b*b)
+        return Point(x + 2*t*a, y + 2*t*b, nom)
 
-def rotation(B,theta,A=O):
+    def symetrie(self, P, nom = None):
+        """ symétrique de self par rapport au point P """  
+        res = P + (P - self)
+        res.nom = nom
+        return res
+
+PointO = Point(0,0)
+
+def rotation(B,theta,A=PointO):
     ''' Renvoie l'image de u par la rotation d'angle theta autour de A '''
     return Point(A.x + (B.x-A.x) * cos(theta) - (B.y-A.y) * sin(theta), A.y + (B.x-A.x) * sin(theta) + (B.y-A.y) * cos(theta))   
 
