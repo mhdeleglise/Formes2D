@@ -19,7 +19,7 @@ class Polygone(Forme2D):
         self.sommets.append(point)
         self.n += 1
 
-    def draw(self, ax, dx=0.05, dy=0.05, color=None, namecolor=None, s = 10, **kwds):
+    def draw(self, ax, dx=0.08, dy=0.00, color=None, namecolor=None, s = 10, **kwds):
         xdata   = [p.x for p in self.sommets]
         ydata   = [p.y for p in self.sommets]
         xdata.append(self.sommets[0].x)
