@@ -56,7 +56,11 @@ class Droite():
         """ La perpendiculaire à self passant par P """
         a, b, x, y = self.a, self.b, P.x, P.y   
         return Droite(-b, a, b*x - a*y)
-    
+
+    def retournement(self, d):
+        a,b,c,u,v,w = self.a, self.b, self.c, d.a, d.b, d.c
+        r2 = u**2 + v**2
+        return Droite(a - 2*(a*u+b*v)*u/r2, b-2*(a*u+b*v)*v/r2, c - 2*(a*u+b*v)/r2*w)
 
 class DemiDroite():
     def __init__(self,A,V):
