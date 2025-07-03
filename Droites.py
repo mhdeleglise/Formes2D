@@ -29,9 +29,6 @@ class Droite():
     def draw(self,ax,**others):
         xmin, xmax = plt.xlim()
         ymin, ymax = plt.ylim()
-
-        #label = others.get("label", self.__repr__())
-        label = others.get("label", self.str())
         if self.b == 1:
             y0, y1  = [-self.c - self.a * x for x in [xmin, xmax]]
             ax.plot([xmin,xmax],[y0,y1], **others)
@@ -58,6 +55,7 @@ class Droite():
         return Droite(-b, a, b*x - a*y)
 
     def retournement(self, d):
+        """ Le retournement de d autour de sel """
         a,b,c,u,v,w = self.a, self.b, self.c, d.a, d.b, d.c
         t = (a*u+b*v)/(u**2 + v**2)
         return Droite(a - 2*t*u, b-2*t*v, c - 2*t*w)
