@@ -54,11 +54,19 @@ class Droite():
         a, b, x, y = self.a, self.b, P.x, P.y   
         return Droite(-b, a, b*x - a*y)
 
-    def retournement(self, d):
-        """ Le retournement de d autour de self """
-        u,v,w,a,b,c = self.a, self.b, self.c, d.a, d.b, d.c
-        t = (a*u+b*v)/(u**2 + v**2)
-        return Droite(a - 2*t*u, b-2*t*v, c - 2*t*w)
+    def retournement(self, obj):
+        """ Les retournements autour de self """
+        a, b, c = self.a, self.b, self.c
+        if isinstance(obj, Droite):
+            u,v,w =  obj.a, obj.b, obj.c
+            t = 2*(a*u+b*v)/(a**2 + b**2)
+            return Droite(u - t*a, v- t*b, w - t*c)
+        if isinstance(obj, Point):
+            a, b, c = self.a, self.b ,self.c
+            x, y = obj.x, obj. y
+            t= -(a*x + b*y + c)/(a*a + b*b)
+            return Point(x + 2*t*a, y + 2*t*b, nom)
+
 
 class DemiDroite():
     def __init__(self,A,V):
