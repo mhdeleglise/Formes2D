@@ -55,8 +55,8 @@ class Droite():
         return Droite(-b, a, b*x - a*y)
 
     def retournement(self, d):
-        """ Le retournement de d autour de sel """
-        a,b,c,u,v,w = self.a, self.b, self.c, d.a, d.b, d.c
+        """ Le retournement de d autour de self """
+        u,v,w,a,b,c = self.a, self.b, self.c, d.a, d.b, d.c
         t = (a*u+b*v)/(u**2 + v**2)
         return Droite(a - 2*t*u, b-2*t*v, c - 2*t*w)
 

@@ -10,9 +10,16 @@ class Vecteur:
     def __repr__(self):
         return f"Vecteur({self.x},{self.y})"      
     
-    def __mul__(u,v):
-        ''' l'opérateur mul * est produit scalaire'''
-        return u.x * v.x + u.y * v.y
+    def __mul__(u,t):
+        if isinstance(t,Vecteur):
+            return u.x * t.x +  u.y * t.y
+        elif isinstance(t, (int, float)):
+            return Vecteur(t*(u.x),t*(u.y))
+        else:
+            raise TypeError("Un vecteur ne peut être multiplié que par un nombre où un autre vecteur")
+
+    def __rmul__(self, scalar):
+        return self.__mul__(scalar)
 
     def __xor__(self,v):
         ''' L'opérateur xor ^ est comme le produit vectoriel '''
@@ -39,11 +46,14 @@ class Point: #Espace affine euclidien de dimension 2
     def __iadd__(self,other):
         return self.__add__(other)
 
-    def __mul__(self, scalar, name=None):
-        return Point(self.x * scalar, self.y * scalar, name)
-
-    def __rmul__(self, scalar, nom=""):
-        return self.__mul__(scalar, nom)  # permet d’écrire 0.5 * A
+    def __mul__(self, t, name=None):
+        if not isinstance(t, (int, float)):
+            raise TypeError("Un point ne être multiplié que par un scalaire")
+        else:
+            return Point(t*self.x, t*self.y)
+            
+    def __rmul__(self, scalar):
+        return self.__mul__(scalar)
 
     def __truediv__(self, scalar):
         return Point(self.x / scalar, self.y / scalar)
@@ -87,8 +97,8 @@ class Point: #Espace affine euclidien de dimension 2
         return Point(x + 2*t*a, y + 2*t*b, nom)
 
     def symetrie(self, P, nom = None):
-        """ symétrique de self par rapport au point P """  
-        res = P + (P - self)
+        """ symétrique centrale de centre self """
+        res = self + (-1)*(P - self)
         res.nom = nom
         return res
 
