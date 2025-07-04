@@ -97,7 +97,7 @@ class Point: #Espace affine euclidien de dimension 2
 
     def symetrie(self, P, nom = None):
         """ symétrique centrale de centre self """
-        res = self + (-1)*(P - self)
+        res = self + (self - P)
         res.nom = nom
         return res
 
