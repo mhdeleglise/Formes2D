@@ -1,4 +1,4 @@
-from formes2d import *
+#from formes2d import *
 import matplotlib.pyplot as plt
 import numpy as np
 from Geo import *
@@ -38,12 +38,7 @@ class Droite():
             y_vals = [ymin, ymax]
             ax.plot([x, x], y_vals, **others)
 
-    def projection(self, P, nom = None):
-        """ Renvoie la projection orthogonale de P sur self """
-        a, b, c = self.a, self.b, self.c
-        lbd = -(a * P.x + b * P.y + c)/(a*a + b*b)
-        return Point(P.x + lbd * a, P.y + lbd * b, nom)
-
+    
     def parallele(self,P):
         """ La parallèle à self passant par P """
         a, b, x, y = self.a, self.b, P.x, P.y
@@ -53,19 +48,6 @@ class Droite():
         """ La perpendiculaire à self passant par P """
         a, b, x, y = self.a, self.b, P.x, P.y   
         return Droite(-b, a, b*x - a*y)
-
-    def retournement(self, obj):
-        """ Les retournements autour de self """
-        a, b, c = self.a, self.b, self.c
-        if isinstance(obj, Droite):
-            u,v,w =  obj.a, obj.b, obj.c
-            t = 2*(a*u+b*v)/(a**2 + b**2)
-            return Droite(u - t*a, v- t*b, w - t*c)
-        if isinstance(obj, Point):
-            a, b, c = self.a, self.b ,self.c
-            x, y = obj.x, obj. y
-            t= -(a*x + b*y + c)/(a*a + b*b)
-            return Point(x + 2*t*a, y + 2*t*b, nom)
 
 
 class DemiDroite():

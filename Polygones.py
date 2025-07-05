@@ -1,8 +1,9 @@
-from formes2d import *
+#from formes2d import *
 import copy
 from Geo import *
 
-class Polygone(Forme2D):
+#class Polygone(Forme2D):
+class Polygone():
     def __init__(self, sommets=None):
         if sommets is None:
             sommets = []

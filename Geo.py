@@ -90,27 +90,6 @@ class Point: #Espace affine euclidien de dimension 2
         self.x += V.x
         self.y += V.y
 
-    '''
-    def retournement(self, d, nom = None):
-        """ symétrique de self par rapport à la droite d """
-        a, b, c, x, y  = d.a, d.b, d.c, self.x, self.y
-        t = -(a*x + b*y + c)/(a*a + b*b)
-        return Point(x + 2*t*a, y + 2*t*b, nom)
-    '''
-    
-    def symetrie(self, t, nom = None):
-        """ symétrique centrale de centre self """
-        a, b = self.x, self.y
-        if isinstance(t,Point):
-            res = self + (self - t)
-            res.nom = nom
-            return res
-        if isinstance(t,Droite):
-            u,v,w =t.a, t.b, t.c
-            return Droite(-u, -v, w + 2*u*a + 2*v*b)
-
-            
-
 PointO = Point(0,0)
 
 def rotation(B,theta,A=PointO):
