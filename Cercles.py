@@ -1,7 +1,6 @@
-from formes2d import *
 import matplotlib.pyplot as plt
 
-class Cercle(Forme2D):
+class Cercle():
     def __init__(self, centre, rayon):
         self.centre = centre
         self.rayon = rayon
