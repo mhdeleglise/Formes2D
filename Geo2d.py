@@ -3,6 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #######################################################################################
+def signe(x):
+    if x >=0:
+        return '+'
+    return '-'
 
 class Vecteur:
     def __init__(self,x=0,y=0):
@@ -81,16 +85,19 @@ class Point: #Espace affine euclidien de dimension 2
         self.x += V.x
         self.y += V.y
 
+    def symetrie_centrale(self, other):
+        if isinstance(other, Point):
+            return self + (self - other)
+        if isinstance(other, Droite):
+            a, b, u,v, w = self.x, self.x, other.a, other.b, other.c
+            return Droite(-u, -v, w + 2*u*a + 2*v*b)
+        else:
+            raise TypeError("La symétrie centrale n'est implémentée que pour un Point ou une Droite")
+
 
 #######################################################################################
 
 class Droite():
-    
-    def signe(x):
-        if x >=0:
-            return '+'
-        return '-'
-    
     def __init__(self, a, b, c):
         """ La droite d'équation ax + by + c = 0 """
         if b == 0:
@@ -131,7 +138,17 @@ class Droite():
         a, b, x, y = self.a, self.b, P.x, P.y   
         return Droite(-b, a, b*x - a*y)
 
-
+    def retournement(self, obj):
+        a, b, c = self.a, self.b, self.c
+        if isinstance(obj, Point):
+            x, y = obj.x, obj.y
+            t= -2*(a*x + b*y + c)/(a*a + b*b)
+            return Point(x + t*a, y + t*b)    
+        if isinstance(obj, Droite):
+            u, v, w = obj.a, obj.b, obj.c
+            t = -2*(a*u+b*v)/(a**2 + b**2)
+            return Droite(u + t*a, v + t*b, w + t*c)           
+        
 class DemiDroite():
     def __init__(self,A,V):
         self.A = A

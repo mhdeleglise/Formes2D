@@ -1,6 +1,4 @@
-from Geo import *
-from Droites import *
-
+from Geo2d import *
 
 def symetrie(t, p, nom = None):
     """ symétries centrale de centre p """
@@ -15,7 +13,6 @@ def symetrie(t, p, nom = None):
 
 def retournement(obj, d, nom=None):
     """ Les retournements autour de d """
-    print("In retournement self = ", d , "   obj= ", obj)
     a, b, c = d.a, d.b, d.c
     if isinstance(obj, Droite):
         u,v,w =  obj.a, obj.b, obj.c

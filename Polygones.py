@@ -1,6 +1,6 @@
 #from formes2d import *
 import copy
-from Geo import *
+from Geo2d import *
 
 #class Polygone(Forme2D):
 class Polygone():
