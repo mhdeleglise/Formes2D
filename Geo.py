@@ -44,9 +44,6 @@ class Point: #Espace affine euclidien de dimension 2
         """ l'opérateur + devient l'addition de Points """
         return Point(self.x + other.x, self.y + other.y)
 
-    def __iadd__(self,other):
-        return self.__add__(other)
-
     def __mul__(self, t, name=None):
         if not isinstance(t, (int, float)):
             raise TypeError("Un point ne être multiplié que par un scalaire")
@@ -72,25 +69,21 @@ class Point: #Espace affine euclidien de dimension 2
     def coords(self):
         return (self.x, self.y)        
     
-    def vecteur(self,other):
-        return Vecteur(self.x-other.x, self.y - other.y)
-
     def distance(self,other):
-        v = Point.vecteur(self,other)
+        v = vecteur(self,other)
         return sqrt(v*v)
 
-    def rotate(self, theta):
-        ''' Rotation en place le point est déplacé '''
-        x, y = self.x, self.y
-        self.x = x * cos(theta) - y * sin(theta)
-        self.y = x * sin(theta) + y * cos(theta)
-    
     def translate(self, V):
         ''' self est modifié '''
         self.x += V.x
         self.y += V.y
 
 PointO = Point(0,0)
+
+def vecteur(A,B):
+    assert isinstance(A,Point) and isinstance(B, Point)
+    return Vecteur(B.x-A.x, B.y-A.y)
+
 
 def rotation(B,theta,A=PointO):
     ''' Renvoie l'image de u par la rotation d'angle theta autour de A '''

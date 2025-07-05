@@ -86,8 +86,8 @@ class Triangle(Polygone):
         return 'Triangle' + str(self.sommets)
 
     def aire(self):
-        u = Point.vecteur(self.sommets[0],self.sommets[1])
-        v = Point.vecteur(self.sommets[0],self.sommets[2])
+        u = vecteur(self.sommets[0],self.sommets[1])
+        v = vecteur(self.sommets[0],self.sommets[2])
         return abs(Vecteur.det(u,v))/2
 
     def centre(self):
