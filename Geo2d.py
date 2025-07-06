@@ -118,6 +118,7 @@ class Droite():
     def draw(self,ax,**others):
         xmin, xmax = plt.xlim()
         ymin, ymax = plt.ylim()
+        print(xmin, xmax, ymin, ymax)
         if self.b == 1:
             y0, y1  = [-self.c - self.a * x for x in [xmin, xmax]]
             ax.plot([xmin,xmax],[y0,y1], **others)
@@ -147,7 +148,19 @@ class Droite():
         if isinstance(obj, Droite):
             u, v, w = obj.a, obj.b, obj.c
             t = -2*(a*u+b*v)/(a**2 + b**2)
-            return Droite(u + t*a, v + t*b, w + t*c)           
+            return Droite(u + t*a, v + t*b, w + t*c)         
+
+    def intersection(self,d):
+        a, b, c = self.a, self.b, self.c
+        u, v, w = d.a, d.b, d.c
+        delta = a*v - b*u
+        dx    = -c*v + b*w
+        dy    = -a*w + c*u
+        if abs(delta) < 1e-12:
+            return None
+        else:
+            return Point(dx/delta, dy/delta)
+
         
 class DemiDroite():
     def __init__(self,A,V):
