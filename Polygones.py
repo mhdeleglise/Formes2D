@@ -1,8 +1,7 @@
 #from formes2d import *
-import copy
+#import copy
 from Geo2d import *
 
-#class Polygone(Forme2D):
 class Polygone():
     def __init__(self, sommets=None):
         if sommets is None:
@@ -20,7 +19,7 @@ class Polygone():
         self.sommets.append(point)
         self.n += 1
 
-    def draw(self, ax, dx=0.08, dy=0.00, color=None, namecolor=None, s = 10, **kwds):
+    def draw(self, ax, dx=0.0, dy=0.0, color=None, namecolor=None, s = 10, **kwds):
         xdata   = [p.x for p in self.sommets]
         ydata   = [p.y for p in self.sommets]
         xdata.append(self.sommets[0].x)
@@ -28,8 +27,8 @@ class Polygone():
         plt.plot(xdata, ydata)
         if not color is None:
             plt.fill(xdata, ydata, color, alpha=0.30)  
-        for p in self.sommets:
-            p.draw(ax, dx, dy,s, color, namecolor, *kwds)
+        #for p in self.sommets:
+        #    p.draw(ax, dx, dy,s, color, namecolor, *kwds)
         return
 
     def coords(self,i):

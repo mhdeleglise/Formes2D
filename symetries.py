@@ -39,13 +39,6 @@ def orthogonale(d, P):
     a, b, x, y = d.a, d.b, P.x, P.y   
     return Droite(-b, a, b*x - a*y)    
 
-'''
-def retournement(M, d, nom = None):
-    """ symétrique de A par rapport à d """
-    a, b, c = d.a, d.b, d.c
-    lbd = -(a * M.x + b * M.y + c)/(a*a + b*b)
-    return Point(M.x + 2*lbd*a, M.y + 2*lbd*b, nom)
-'''
 
    
     
