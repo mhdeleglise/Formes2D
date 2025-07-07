@@ -96,6 +96,9 @@ class Triangle(Polygone):
         w = self.sommets[2]
         return Point((u.x + v.x + w.x)/3, (u.y + v.y + w.y)/3,nom)
 
+def mediatrice(triangle, A, B):
+    assert isinstance(triangle,Triangle) and triangle.has_sommet(A) and triangle.has_sommet(B) 
+    return orthogonale(droite(A,B),(A+B)/2)
 
         
         
