@@ -1,5 +1,3 @@
-#from formes2d import *
-#import copy
 from Geo2d import *
 
 class Polygone():
@@ -66,7 +64,7 @@ class Polygone():
             res += a
         return res
 
-    def isobarycentre(self, nom=None):
+    def barycentre(self, nom=None):
         gres = Point(0,0)
         s = 0
         pts = []
@@ -74,7 +72,7 @@ class Polygone():
         for i in range(self.n-2):    
             tr = Triangle(self.sommets[0], self.sommets[i+1], self.sommets[i+2])
             a  = tr.aire()
-            g  = tr.isobarycentre()
+            g  = tr.barycentre()
             s += a
             gres =  gres + g*a
         gres = gres/s
@@ -94,7 +92,7 @@ class Triangle(Polygone):
         v = vecteur(self.sommets[0],self.sommets[2])
         return abs(Vecteur.det(u,v))/2
 
-    def isobarycentre(self,nom=None):
+    def barycentre(self,nom=None):
         u = self.sommets[0]
         v = self.sommets[1]
         w = self.sommets[2]
