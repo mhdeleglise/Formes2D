@@ -65,7 +65,7 @@ class Point: #Espace affine euclidien de dimension 2
 
     def __sub__(self, B):
         """ Le vecteur B-self """
-        return Vecteur(self.x-other.x, self.y - other.y)
+        return Vecteur(self.x - B.x, self.y - B.y)
 
     def draw(self, ax, dx=0.0, dy=0.0, s = 10, color=None, namecolor='black', **kwds):
         plt.scatter(self.x, self.y, s, color, **kwds)
