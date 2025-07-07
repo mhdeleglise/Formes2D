@@ -118,7 +118,7 @@ class Droite():
     def draw(self,ax,**others):
         xmin, xmax = plt.xlim()
         ymin, ymax = plt.ylim()
-        print(xmin, xmax, ymin, ymax)
+        #print(xmin, xmax, ymin, ymax)
         if self.b == 1:
             y0, y1  = [-self.c - self.a * x for x in [xmin, xmax]]
             ax.plot([xmin,xmax],[y0,y1], **others)
@@ -202,6 +202,13 @@ PointO = Point(0,0)
 def vecteur(A,B):
     assert isinstance(A,Point) and isinstance(B, Point)
     return Vecteur(B.x-A.x, B.y-A.y)
+
+def droite(A,B):
+    if not isinstance(A,Point) or not isinstance(B,Point):
+        raise TypeError("droite(A,B): A,B ne sont pas deux points")
+    else:
+        x0, y0, x1, y1 = A.x, A.y, B.x, B.y
+        return Droite(y0-y1, x1 - x0, x0*y1 - x1*y0)
 
 
 def rotation(B,theta,A=PointO):
