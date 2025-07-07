@@ -17,16 +17,14 @@ class Polygone():
         self.sommets.append(point)
         self.n += 1
 
-    def draw(self, ax, dx=0.0, dy=0.0, color=None, namecolor=None, s = 10, **kwds):
+    def draw(self, ax, dx=0.0, dy=0.0, color=None, namecolor=None, ms = 0, **kwds):
         xdata   = [p.x for p in self.sommets]
         ydata   = [p.y for p in self.sommets]
         xdata.append(self.sommets[0].x)
         ydata.append(self.sommets[0].y)
-        plt.plot(xdata, ydata)
+        ax.plot(xdata, ydata, '-o', color= color,ms=ms)
         if not color is None:
             plt.fill(xdata, ydata, color, alpha=0.30)  
-        #for p in self.sommets:
-        #    p.draw(ax, dx, dy,s, color, namecolor, *kwds)
         return
 
     def has_sommet(self, A):
