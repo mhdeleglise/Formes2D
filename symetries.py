@@ -39,6 +39,11 @@ def orthogonale(d, P):
     a, b, x, y = d.a, d.b, P.x, P.y   
     return Droite(-b, a, b*x - a*y)    
 
+def hauteur(A,triangle):
+    if not triangle.has_sommet(A):
+        return None
+    B, C = [p for p in triangle.sommets if p != A]
+    return orthogonale(droite(B,C),A)
 
    
     

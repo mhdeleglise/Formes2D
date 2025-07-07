@@ -1,5 +1,4 @@
-import Geo
-from Geo import *
+from Geo2d import *
 from Polygones import *
 from math import pi as pi, sin as sin, tan as tan, cos as cos, radians as radians, degrees as degrees
 
