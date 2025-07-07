@@ -63,8 +63,8 @@ class Point: #Espace affine euclidien de dimension 2
     def __truediv__(self, scalar):
         return Point(self.x / scalar, self.y / scalar)
 
-    def __sub__(self, other):
-        """ La différence A - B de deux points A et B est le vecteur de la translation qui envoie A sur B """
+    def __sub__(self, B):
+        """ Le vecteur B-self """
         return Vecteur(self.x-other.x, self.y - other.y)
 
     def draw(self, ax, dx=0.0, dy=0.0, s = 10, color=None, namecolor='black', **kwds):
@@ -94,7 +94,20 @@ class Point: #Espace affine euclidien de dimension 2
         else:
             raise TypeError("La symétrie centrale n'est implémentée que pour un Point ou une Droite")
 
-
+def barycentre(listePoints, listeCoeffs=[], nom=None):
+    """ Si la liste des coefficients est vide, on leur attribue la valeur 1 """
+    n = len(listePoints)
+    assert n > 0
+    if len(listeCoeffs) == 0:
+        listeCoeffs = n * [1]
+    assert len(listePoints) == len(listeCoeffs)
+    sommeCoeffs = sum(listeCoeffs)
+    assert sommeCoeffs != 0
+    G = Point(0,0,nom)
+    for i in range(n):
+        G += listeCoeffs[i]*listePoints[i]
+    G /= sommeCoeffs
+    return G
 #######################################################################################
 
 class Droite():
@@ -200,6 +213,7 @@ class Segment():
 PointO = Point(0,0)
 
 def vecteur(A,B):
+    """ C'est la même chose que B-A """
     assert isinstance(A,Point) and isinstance(B, Point)
     return Vecteur(B.x-A.x, B.y-A.y)
 
