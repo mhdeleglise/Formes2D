@@ -26,7 +26,7 @@ class Regle(Polygone):
                 self.E  = Point(self.A.x + (self.A.y-h)*tan(theta),h,'E') 
                 self.F  = Point(self.B.x + (self.B.y-h)*tan(theta),h,'F')
                 self.qi = Polygone([self.E,self.F,self.C,self.D])
-        self.P = Point(self.qi.isobarycentre().x, self.qi.isobarycentre().y,'P')
+        self.P = Point(self.qi.barycentre().x, self.qi.barycentre().y,'P')
         self.densite = self.qi.aire()
         self.equilibre = abs(self.P.x) < 1e-9
         self.rM = Point.distance(self.E,self.F)**3/12/self.qi.aire() # Le rayon métacentrique
