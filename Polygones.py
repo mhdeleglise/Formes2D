@@ -100,6 +100,7 @@ def mediatrice(triangle, A, B):
     assert isinstance(triangle,Triangle) and triangle.has_sommet(A) and triangle.has_sommet(B) 
     return orthogonale(droite(A,B),(A+B)/2)
 
+
         
         
         
