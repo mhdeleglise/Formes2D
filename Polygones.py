@@ -31,6 +31,9 @@ class Polygone():
         #    p.draw(ax, dx, dy,s, color, namecolor, *kwds)
         return
 
+    def has_sommet(self, A):
+        return A in self.sommets
+    
     def coords(self,i):
         ''' Les coordonnées du ième sommet '''
         return self.sommets[i].coords()
@@ -59,27 +62,29 @@ class Polygone():
     def aire(self):
         res = 0.0
         for i in range(self.n-2):
-            a = Triangle(self.coords(0), self.coords(i+1), self.coords(i+2)).aire()
+            a = Triangle(self.sommets[0], self.sommets[i+1], self.sommets[i+2]).aire()
             res += a
         return res
 
-    def isobarycentre(self):
+    def isobarycentre(self, nom=None):
         gres = Point(0,0)
         s = 0
         pts = []
         aires = []
         for i in range(self.n-2):    
-            tr = Triangle(self.coords(0), self.coords(i+1), self.coords(i+2))
+            tr = Triangle(self.sommets[0], self.sommets[i+1], self.sommets[i+2])
             a  = tr.aire()
-            g  = tr.centre()
+            g  = tr.isobarycentre()
             s += a
             gres =  gres + g*a
-        return gres/s
+        gres = gres/s
+        gres.nom = nom
+        return gres
             
 class Triangle(Polygone): 
     def __init__(self, A, B, C):
         self.size = 3
-        self.sommets=[Point(*A), Point(*B),Point(*C)]
+        self.sommets=[A, B, C]
  
     def __repr__(self):
         return 'Triangle' + str(self.sommets)
@@ -89,11 +94,11 @@ class Triangle(Polygone):
         v = vecteur(self.sommets[0],self.sommets[2])
         return abs(Vecteur.det(u,v))/2
 
-    def centre(self):
+    def isobarycentre(self,nom=None):
         u = self.sommets[0]
         v = self.sommets[1]
         w = self.sommets[2]
-        return Point((u.x + v.x + w.x)/3, (u.y + v.y + w.y)/3)
+        return Point((u.x + v.x + w.x)/3, (u.y + v.y + w.y)/3,nom)
 
 
         
