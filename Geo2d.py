@@ -163,7 +163,7 @@ class Droite():
             t = -2*(a*u+b*v)/(a**2 + b**2)
             return Droite(u + t*a, v + t*b, w + t*c)         
 
-    def intersection(self,d):
+    def intersection(self,d, nom=None):
         a, b, c = self.a, self.b, self.c
         u, v, w = d.a, d.b, d.c
         delta = a*v - b*u
@@ -172,7 +172,7 @@ class Droite():
         if abs(delta) < 1e-12:
             return None
         else:
-            return Point(dx/delta, dy/delta)
+            return Point(dx/delta, dy/delta,nom)
 
         
 class DemiDroite():
