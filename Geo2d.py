@@ -35,6 +35,10 @@ class Vecteur:
         ''' Le determinant , même chose que le précédent ''' 
         return u.x * v.y - v.x * u.y
 
+    def unit(self):
+        r = sqrt(self.x**2 + self.y**2)
+        return Vecteur(self.x/r, self.y/r)
+        
 #######################################################################################
         
 class Point: #Espace affine euclidien de dimension 2
@@ -124,14 +128,20 @@ class Droite():
         a, b, c = self.a, self.b, self.c
         if self.b ==  0:
             """ a n'est pas nul et x = -c/a """
-            return "Droite x = {} {:.3f}".format(signe(-c/a), abs(c/a)) 
+            return "Droite x = {} {:.4f}".format(signe(-c/a), abs(c/a)) 
         else:
             """ y = -c/b - a/b * x """
-            return "Droite y = {} {:.3f} x {} {:.3f}".format(signe(-a/b), abs(a/b), signe(-c/b), abs(c/b))
+            return "Droite y = {} {:.4f} x {} {:.4f}".format(signe(-a/b), abs(a/b), signe(-c/b), abs(c/b))
 
     def str(self):
         return self.__repr__()[7:]
-        
+
+    def unit(self):
+        if self.b > 0:
+            return Vecteur(self.b, -self.a)
+        else:
+            return Vecteur(-self.b, self.a)
+    
     def draw(self,ax,**others):
         xmin, xmax = plt.xlim()
         ymin, ymax = plt.ylim()
