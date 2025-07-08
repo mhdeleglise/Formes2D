@@ -40,6 +40,7 @@ class Vecteur:
         return Vecteur(self.x/r, self.y/r)
 
     def angle(self,w):
+        """ angle orienté vers w """
         u,v = self.unit(), w.unit()
         a = acos(u*v)
         if u^v > 0:
@@ -165,6 +166,7 @@ class Droite():
             ax.plot([x, x], y_vals, **others)
 
     def angle(self, d):
+        """ angle orienté de self vers d """
         alpha = self.unit().angle(d.unit())
         if alpha <= pi:
             return alpha
