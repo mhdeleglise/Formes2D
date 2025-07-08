@@ -120,7 +120,7 @@ class Triangle(Polygone):
     def orthocentre(self, nom = None):
         return self.hauteur(0).intersection(self.hauteur(1))
 
-    def centreCercle(self, nom = None):
+    def centreCercleCirconscrit(self, nom = None):
         return self.mediatrice(0).intersection(self.mediatrice(1),nom)
         
         
