@@ -266,15 +266,13 @@ def parallele(d, P):
     return Droite(a, b, -(a*x+b*y))
 
 def orthogonale(d, P):
-    """ La perpendiculaire à self passant par P """
+    """ La perpendiculaire à d passant par P """
     a, b, x, y = d.a, d.b, P.x, P.y   
     return Droite(-b, a, b*x - a*y)    
 
-def hauteur(A,triangle):
-    if not triangle.has_sommet(A):
-        return None
-    B, C = [p for p in triangle.sommets if p != A]
-    return orthogonale(droite(B,C),A)
-
+def mediatrice(A,B):
+    assert isinstance(A,Point) and isinstance(B,Point)
+    return orthogonale(droite(A,B),(A+B)/2)
+    
     
      
