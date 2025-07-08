@@ -1,4 +1,4 @@
-from math import cos as cos, sin as sin, sqrt as sqrt, pi as pi
+from math import cos as cos, sin as sin, sqrt as sqrt, acos as acos, pi as pi, degrees as degrees
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -38,6 +38,14 @@ class Vecteur:
     def unit(self):
         r = sqrt(self.x**2 + self.y**2)
         return Vecteur(self.x/r, self.y/r)
+
+    def angle(self,w):
+        u,v = self.unit(), w.unit()
+        a = acos(u*v)
+        if u^v > 0:
+            return a
+        else:
+            return 2*pi-a
         
 #######################################################################################
         
@@ -156,6 +164,12 @@ class Droite():
             y_vals = [ymin, ymax]
             ax.plot([x, x], y_vals, **others)
 
+    def angle(self, d):
+        alpha = self.unit().angle(d.unit())
+        if alpha <= pi:
+            return alpha
+        else:
+            return alpha-pi
     
     def parallele(self,P):
         """ La parallèle à self passant par le point P """
