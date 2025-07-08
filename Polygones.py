@@ -13,9 +13,9 @@ class Polygone():
             res += str(p) + ', '
         return 'Polygone(' + res[:-2] + ')'
     
-    def add_sommet(self, point):
-        self.sommets.append(point)
-        self.n += 1
+    #def add_sommet(self, point):
+    #    self.sommets.append(point)
+    #    self.n += 1
 
     def draw(self, ax, dx=0.0, dy=0.0, color=None, namecolor=None, ms = 0, **kwds):
         xdata   = [p.x for p in self.sommets]
@@ -26,6 +26,9 @@ class Polygone():
         if not color is None:
             plt.fill(xdata, ydata, color, alpha=0.30)  
         return
+
+    def sommet(self,i):
+        return self.sommets[i % self.n]
 
     def has_sommet(self, A):
         return A in self.sommets
@@ -79,7 +82,7 @@ class Polygone():
             
 class Triangle(Polygone): 
     def __init__(self, A, B, C):
-        self.size = 3
+        self.n = 3
         self.sommets=[A, B, C]
  
     def __repr__(self):
@@ -96,10 +99,20 @@ class Triangle(Polygone):
         w = self.sommets[2]
         return Point((u.x + v.x + w.x)/3, (u.y + v.y + w.y)/3,nom)
 
-def mediatrice(triangle, A, B):
-    assert isinstance(triangle,Triangle) and triangle.has_sommet(A) and triangle.has_sommet(B) 
-    return orthogonale(droite(A,B),(A+B)/2)
+    def mediane(self, i):
+        return Segment(self.sommet(i), (self.sommet(i+1) + self.sommet(i+2))/2)
 
+    def hauteur(self, i, limited= False):
+        if limited:
+            #H = projection(self.sommet(i), (droite(self.sommet(i+1),self.sommet(i+2))))
+            return Segment(self.sommet(i),projection(self.sommet(i), (droite(self.sommet(i+1),self.sommet(i+2)))))
+        else:
+            return (droite(self.sommet(i+1),self.sommet(i+2))).orthogonale(self.sommet(i))
+            
+    def mediatrice(self,i):
+        A, B = self.sommet(i+1),self.sommet(i+2)
+        return orthogonale(droite(A,B),(A+B)/2)
+        
 
         
         
