@@ -18,7 +18,7 @@ class Cercle():
         ax.add_patch(cercle)
     """
 
-    def draw(self, ax, fill = False, color = 'green'):
+    def draw(self, ax, fill = False, color = 'green',**others):
         x0, y0, r = self.centre.x, self.centre.y, self.rayon
         x  = np.linspace(x0-r, x0 + r,100)
         y1 = y0 + np.sqrt(r**2 - (x-x0)*(x-x0))
@@ -28,7 +28,7 @@ class Cercle():
         if fill:
             plt.fill_between(x,y1,y2, color = color)
         else:
-            ax.plot(x,y1,color='green')
+            ax.plot(x,y1,color='green',**others)
             ax.plot(x,y2,color='green')
     
     def translate(self, v):
