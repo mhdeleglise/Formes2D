@@ -104,7 +104,6 @@ class Triangle(Polygone):
 
     def hauteur(self, i, limited= False):
         if limited:
-            #H = projection(self.sommet(i), (droite(self.sommet(i+1),self.sommet(i+2))))
             return Segment(self.sommet(i),projection(self.sommet(i), (droite(self.sommet(i+1),self.sommet(i+2)))))
         else:
             return (droite(self.sommet(i+1),self.sommet(i+2))).orthogonale(self.sommet(i))
@@ -112,6 +111,18 @@ class Triangle(Polygone):
     def mediatrice(self,i):
         A, B = self.sommet(i+1),self.sommet(i+2)
         return orthogonale(droite(A,B),(A+B)/2)
+
+    def barycentre(self, nom = None):
+        G  = (self.sommet(0) + self.sommet(1) + self.sommet(2))/3
+        G.nom = nom
+        return G
+
+    def orthocentre(self, nom = None):
+        return self.hauteur(0).intersection(self.hauteur(1))
+
+    def centreCercle(self, nom = None):
+        return self.mediatrice(0).intersection(self.mediatrice(1),nom)
+        
         
 
         
