@@ -178,6 +178,14 @@ class Droite():
         else:
             return Point(dx/delta, dy/delta,nom)
 
+    def rotation(self, theta, A=PointO):
+        """ Rotation de self, angle theta, autour de A """
+        a, b, c = self.a, self.b, self.c
+        x0, y0 = A.x, A.y
+        u = a*cos(theta) - b*sin(theta)
+        v = a*sin(theta) + b*cos(theta)
+        w = a*x0 + b*y0 + c - u * x0 - v *y0
+        return Droite(u,v,w)
         
 class DemiDroite():
     def __init__(self,A,V):
