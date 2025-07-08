@@ -108,7 +108,11 @@ def barycentre(listePoints, listeCoeffs=[], nom=None):
         G += listeCoeffs[i]*listePoints[i]
     G /= sommeCoeffs
     return G
+
+
+PointO = Point(0,0)
 #######################################################################################
+
 
 class Droite():
     def __init__(self, a, b, c):
@@ -209,8 +213,6 @@ class Segment():
     def draw(self, ax, **kwds):
         ax.plot([self.A.x,self.B.x],[self.A.y,self.B.y],**kwds)
 
-
-PointO = Point(0,0)
 
 def vecteur(A,B):
     """ C'est la même chose que B-A """
