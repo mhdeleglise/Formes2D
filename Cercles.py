@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from Geo2d import *
 
+
 class Cercle():
     def __init__(self, centre, rayon):
         self.centre = centre
@@ -12,8 +13,8 @@ class Cercle():
     def perimetre(self):
         return 2 * math.pi * self.rayon
 
-    def draw(self, ax, fill=True, **kwds):
-        cercle = plt.Circle((self.centre.x, self.centre.y), self.rayon, fill=fill, color='green')
+    def draw(self, ax, fill=False, color=None, **kwds):
+        cercle = plt.Circle((self.centre.x, self.centre.y), self.rayon, fill=fill, color=color)
         ax.add_patch(cercle)
 
     def translate(self, v):
@@ -21,3 +22,8 @@ class Cercle():
 
     def rotation(self, angle_degres, centre=None):
         self.centre.rotation(angle_degres, centre)
+
+
+#def cercle(A,B,C):
+#    return Triangle(A,B,C).cercleCirconscrit()
+        
