@@ -86,6 +86,9 @@ class Point: #Espace affine euclidien de dimension 2
             ax.text(self.x + dx, self.y + dy, self.nom, color=namecolor, clip_on=True)
         # if clipon_on == True text n'affiche pas en dehors des axes (ce qu'il fait par défaut
 
+    def rename(self,nom):
+        self.nom=nom
+    
     def coords(self):
         return (self.x, self.y)        
     
@@ -124,6 +127,11 @@ def barycentre(listePoints, listeCoeffs=[], nom=None):
 
 
 PointO = Point(0,0)
+def milieu(A,B,nom=None):
+    assert isinstance(A,Point) and  isinstance(B,Point)
+    res = (A+B)/2
+    res.nom = nom
+    return res
 #######################################################################################
 
 
@@ -154,7 +162,7 @@ class Droite():
     def draw(self,ax,**others):
         xmin, xmax = plt.xlim()
         ymin, ymax = plt.ylim()
-        print(xmin, xmax, ymin, ymax)
+        #print(xmin, xmax, ymin, ymax)
         ax.set_autoscale_on(False)
         if self.b != 0:
             y0, y1  = [-self.c/self.b - self.a /self.b * x for x in [xmin, xmax]]
