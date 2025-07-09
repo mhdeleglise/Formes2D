@@ -15,7 +15,13 @@ class Vecteur:
 
     def __repr__(self):
         return f"Vecteur({self.x},{self.y})"      
-    
+
+    def __add__(u,t):
+        return Vecteur(u.x + t.x, u.y + t.y)
+
+    def __truediv__(self, scalar):
+        return Vecteur(self.x / scalar, self.y / scalar)
+
     def __mul__(u,t):
         if isinstance(t,Vecteur):
             return u.x * t.x +  u.y * t.y
@@ -180,6 +186,11 @@ class Droite():
             return alpha
         else:
             return alpha-pi
+
+    def bissectrice(self, d):
+        a, b, c = self.a, self.b, self.c
+        u, v, w = d.a, d.b, d.c
+        return Droite(a-u, b-v, c-w)
     
     def parallele(self,P):
         """ La parallèle à self passant par le point P """
@@ -225,18 +236,56 @@ class Droite():
 class DemiDroite():
     def __init__(self,A,V):
         self.A = A
-        self.V = V
+        self.V = V.unit()
 
     def draw(self,ax,**kwds):
-        xA, yA, u, v = self.A.x, self.A.y, self.V[0], self.V[1]
+        print("draw : self.A self.V = ",self.A,self.V)
+        xA, yA, vx, vy = self.A.x, self.A.y, self.V.x, self.V.y
         xmin, xmax = plt.xlim()
-        if u > 0:
-            yend = yA  + (xmax-xA)*v
-            ax.plot([xA, xmax], [yA, yend], **kwds)
-        else:
-            ystart = yA - (xA-xmin)*v
-            ax.plot([xmin, xA], [ystart, yA], **kwds)
-            
+        ymin, ymax = plt.ylim()
+        print("vx, vy ", vx, vy)
+
+        if vx == 0: # "Verticale"
+            if vy > 0:
+                ax.plot([xA, xA], [yA, ymax], **kwds)
+                return
+            else:
+                ax.plot([xA, xA], [yA, ymin], **kwds)                
+                return
+        if vx > 0:
+            pente = vy/vx
+            print("pente= ",pente)
+            if pente > 0:              
+                xmax = min(xmax, xA + (ymax-yA)/pente)
+                ymax = yA  + (xmax-xA)*pente
+                ax.plot([xA,xmax], [yA, ymax], **kwds)
+                return
+            else:
+                xmax = min(xmax, xA + (yA-ymin)/abs(pente))
+                ymin = yA + (xmax-xA)*pente
+                ax.plot([xA,xmax], [yA, ymin], **kwds)
+                return
+
+        if vx < 0:
+            pente = vy/vx
+            print("pente= ",pente)
+            if pente > 0:
+                xmin = min(xmin, xA - (yA-ymin)/pente)
+                ymin = yA - (xA-xmin)*pente
+                ax.plot([xmin,xA], [ymin,yA], **kwds)
+                return
+            else:
+                xmin = max(xmin, xA - (ymax-yA)/abs(pente))
+                print("xmin= ",xmin)
+                ymax = yA + (xmin-xA)*pente
+                ax.plot([xmin,xA], [ymax, yA], **kwds)
+                return
+               
+                
+    def bissectrice(self, d2):
+        #assert isinstance(d2, DemiDroite) and d2.A =self.A
+        return DemiDroite(self.A, (self.V + d2.V)/2)
+        d1.draw(ax)
 
 def droite(p, v):
     """ Droite définie par un point p et un vecteur v """
