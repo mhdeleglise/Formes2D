@@ -1,4 +1,5 @@
 from Geo2d import *
+from Cercles import Cercle
 
 class Polygone():
     def __init__(self, sommets=None):
@@ -120,8 +121,17 @@ class Triangle(Polygone):
     def orthocentre(self, nom = None):
         return self.hauteur(0).intersection(self.hauteur(1))
 
-    def centreCercleCirconscrit(self, nom = None):
+    def centreCercleCirconscrit(self,nom = None):
         return self.mediatrice(0).intersection(self.mediatrice(1),nom)
+
+    def rayonCercleCirconscrit(self):
+        return self.centreCercleCirconscrit().distance(self.sommet(0))
+
+    def cercleCirconscrit(self):
+        return Cercle(self.centreCercleCirconscrit(),self.rayonCercleCirconscrit())
+
+    def piedHauteur(self,i,nom=None):
+        return projection(self.sommet(i),droite(self.sommet(i+1),self.sommet(i+2)),nom)
         
         
 
