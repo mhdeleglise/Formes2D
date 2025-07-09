@@ -30,9 +30,6 @@ class Polygone():
     def sommet(self,i):
         return self.sommets[i % self.n]
 
-    def angle(self,i):
-        return droite(self.sommet(i),self.sommet(i+1)).angle(droite(self.sommet(i),self.sommet(i+2)))
-
     def has_sommet(self, A):
         return A in self.sommets
     
