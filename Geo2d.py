@@ -90,8 +90,7 @@ class Point: #Espace affine euclidien de dimension 2
         plt.scatter(self.x, self.y, s, color=color, **kwds)
         if not self.nom is None:
             ax.text(self.x + dx, self.y + dy, self.nom, color=namecolor, clip_on=True)
-        # if clipon_on == True text n'affiche pas en dehors des axes (ce qu'il fait par défaut
-
+            
     def rename(self,nom):
         self.nom=nom
     
@@ -283,7 +282,7 @@ class DemiDroite():
                
                 
     def bissectrice(self, d2):
-        #assert isinstance(d2, DemiDroite) and d2.A =self.A
+        assert isinstance(d2, DemiDroite) and d2.A == self.A
         return DemiDroite(self.A, (self.V + d2.V)/2)
         d1.draw(ax)
 
