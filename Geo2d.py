@@ -193,10 +193,14 @@ class Droite():
         else:
             return alpha-pi
 
-    def bissectrice(self, d):
+    def bissectrice(self, d, n=0):
+        """ Il y a deux bissectrices, """
         a, b, c = self.a, self.b, self.c
         u, v, w = d.a, d.b, d.c
-        return Droite(a-u, b-v, c-w)
+        if n == 0:
+            return Droite(a-u, b-v, c-w)
+        else:
+            return Droite(a+u, b+v, c+w)
     
     def parallele(self,P):
         """ La parallèle à self passant par le point P """
@@ -241,15 +245,14 @@ class Droite():
         
 class DemiDroite():
     def __init__(self,A,V):
+        assert isinstance(V, Vecteur)
         self.A = A
         self.V = V.unit()
 
     def draw(self,ax,**kwds):
-        print("draw : self.A self.V = ",self.A,self.V)
         xA, yA, vx, vy = self.A.x, self.A.y, self.V.x, self.V.y
         xmin, xmax = plt.xlim()
         ymin, ymax = plt.ylim()
-        print("vx, vy ", vx, vy)
 
         if vx == 0: # "Verticale"
             if vy > 0:
@@ -260,7 +263,6 @@ class DemiDroite():
                 return
         if vx > 0:
             pente = vy/vx
-            print("pente= ",pente)
             if pente > 0:              
                 xmax = min(xmax, xA + (ymax-yA)/pente)
                 ymax = yA  + (xmax-xA)*pente
@@ -274,7 +276,6 @@ class DemiDroite():
 
         if vx < 0:
             pente = vy/vx
-            print("pente= ",pente)
             if pente > 0:
                 xmin = min(xmin, xA - (yA-ymin)/pente)
                 ymin = yA - (xA-xmin)*pente
@@ -282,7 +283,6 @@ class DemiDroite():
                 return
             else:
                 xmin = max(xmin, xA - (ymax-yA)/abs(pente))
-                print("xmin= ",xmin)
                 ymax = yA + (xmin-xA)*pente
                 ax.plot([xmin,xA], [ymax, yA], **kwds)
                 return
@@ -299,7 +299,12 @@ def droite(p, v):
     a,  b  = v
     return Droite(b,-a,b*x0-a*y0)
     
-    
+def demi_droite(A,B):
+    """ demi droite définie par un couple de points """
+    v = vecteur(A,B)
+    print("V et type(V) ", v , type(v))
+    return DemiDroite(A, vecteur(A,B))
+
 class Segment():
     def __init__(self, A, B):
         self.A = A
