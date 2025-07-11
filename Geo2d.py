@@ -101,6 +101,14 @@ class Point: #Espace affine euclidien de dimension 2
         v = vecteur(self,other)
         return sqrt(v*v)
 
+    def distance(self, other):
+        if isinstance(other, Point):
+            v = vecteur(self,other)
+            return sqrt(v*v)
+        else:
+            a,b,c = other.a, other.b, other.c
+            return abs(a*self.x + b *self.y + c)
+
     def translate(self, V):
         ''' self est modifié '''
         self.x += V.x
