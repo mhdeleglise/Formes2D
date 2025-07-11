@@ -313,7 +313,6 @@ def droite(p, v):
 def demi_droite(A,B):
     """ demi droite définie par un couple de points """
     v = vecteur(A,B)
-    print("V et type(V) ", v , type(v))
     return DemiDroite(A, vecteur(A,B))
 
 class Segment():
