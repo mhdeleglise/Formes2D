@@ -145,6 +145,5 @@ class Triangle(Polygone):
         A = self.sommet(0)
         B = self.sommet(1)
         P = self.centreCercleInscrit()
-        H = projection(P,droite(A,B))
-        r = P.distance(H)
+        r = P.distance(droite(A,B))
         return Cercle(P,r)
