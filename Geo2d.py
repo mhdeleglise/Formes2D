@@ -249,6 +249,9 @@ class DemiDroite():
         self.A = A
         self.V = V.unit()
 
+    def droite(self):
+        return droite(self.A, self.A + self.V)
+    
     def draw(self,ax,**kwds):
         xA, yA, vx, vy = self.A.x, self.A.y, self.V.x, self.V.y
         xmin, xmax = plt.xlim()
