@@ -143,8 +143,13 @@ def milieu(A,B,nom=None):
 class Droite():
     def __init__(self, a, b, c):
         """ La droite d'équation ax + by + c = 0 """
-        r = sqrt(a*a + b*b)  
-        self.a, self.b, self.c = a/r, b/r, c/r         
+        r = sqrt(a*a + b*b)
+        a, b, c = a/r, b/r, c/r
+        if a < 0:
+            a,b,c = -a,-b,-c
+        if a == 0 and b < 0:
+            b, c = -b, -c
+        (self.a, self.b, self.c) =  a, b, c
             
     def __repr__(self):
         a, b, c = self.a, self.b, self.c
@@ -154,7 +159,9 @@ class Droite():
         else:
             """ y = -c/b - a/b * x """
             return "Droite y = {} {:.4f} x {} {:.4f}".format(signe(-a/b), abs(a/b), signe(-c/b), abs(c/b))
-
+    def __eq__(self, other):
+        return self.a == other.a and self.b == other.b and  self.c == other.c
+    
     def str(self):
         return self.__repr__()[7:]
 
