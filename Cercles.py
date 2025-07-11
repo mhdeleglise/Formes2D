@@ -6,12 +6,18 @@ class Cercle():
     def __init__(self, centre, r):
         self.centre = centre
         self.rayon = r
-
-    def draw(self, ax, color=None):
+        
+    def draw(self, ax, color=None, facecolor=None,**kwds):
         theta = np.linspace(0, 2*np.pi, 100)
         x1 = self.centre.x + self.rayon*np.cos(theta)
         x2 = self.centre.y + self.rayon*np.sin(theta)
-        ax.plot(x1, x2, color=color)
+        ax.plot(x1, x2, color=color,**kwds)
+        if not facecolor is None:
+            theta = np.linspace(0, np.pi, 100)
+            x = self.centre.x + self.rayon*np.cos(theta)
+            y1 = self.centre.y - self.rayon*np.sin(theta)
+            y2 = self.centre.y + self.rayon*np.sin(theta)            
+            plt.fill_between(x,y1,y2, color = facecolor)
         ax.set_aspect(1)
 
     def aire(self):
