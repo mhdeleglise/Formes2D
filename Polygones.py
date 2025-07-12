@@ -19,7 +19,7 @@ class Polygone():
         ydata   = [p.y for p in self.sommets]
         xdata.append(self.sommets[0].x)
         ydata.append(self.sommets[0].y)
-        ax.plot(xdata, ydata, '-o', color= color, ms=ms)
+        ax.plot(xdata, ydata, '-o', color= color, ms=ms, **kwds)
         if not color is None:
             plt.fill(xdata, ydata, color, alpha=0.30)  
         return
@@ -40,7 +40,7 @@ class Polygone():
 
     def rotate(self, theta, A=0):
         ''' Rotation en place, chaque sommet est remplacé par son imagge
-        par la rotation de theta aoutour de A'''
+        par la rotation de theta autour de A'''
         for u in self.sommets:
             u = u.rotate(theta)
 
