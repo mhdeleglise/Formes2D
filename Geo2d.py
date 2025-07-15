@@ -41,6 +41,11 @@ class Vecteur:
         ''' Le determinant , même chose que le précédent ''' 
         return u.x * v.y - v.x * u.y
 
+    def normalize(self):
+        r = sqrt(self.x**2 + self.y**2)
+        self.x /= r
+        self.y /= r
+    
     def unit(self):
         r = sqrt(self.x**2 + self.y**2)
         return Vecteur(self.x/r, self.y/r)
@@ -241,13 +246,13 @@ class Droite():
     def intersection(self,d, nom=None):
         a, b, c = self.a, self.b, self.c
         u, v, w = d.a, d.b, d.c
-        delta = a*v - b*u
-        dx    = -c*v + b*w
-        dy    = -a*w + c*u
+        delta = b*u -a*v
+        dx    = c*v - b*w
+        dy    = a*w-c*u
         if abs(delta) < 1e-12:
             return None
         else:
-            return Point(dx/delta, dy/delta,nom)
+            return Point(dx/delta, dy/delta, nom)
 
     def rotation(self, theta, A=PointO):
         """ Rotation de self, angle theta, autour de A """
@@ -263,18 +268,16 @@ class DemiDroite(Droite):
     def __init__(self,A,V):
         assert isinstance(A, Point) and isinstance(V, Vecteur)
         self.origine = A
-        r = sqrt(V.x*V.x + V.y*V.y)
-        V.x /= r
-        V.y /= r
-        self.V = V
-        vx, vy = V.x, V.y
+        self.V       = V
         x0, y0 = A.x, A.y
-        self.a, self.b, self.c = vy, -vx, -y0*vx +x0*vy
-        if vx == 0:
-            self.direction = "up" if vy > 0 else "down"
+        a = V.y; b = -V.x; c = y0 * V.x -x0 * V.y
+        super().__init__(a,b,c)
+        self.V.normalize()
+        if V.x == 0:
+            self.direction = "up" if V.y > 0 else "down"
         else:
-            self.direction = "right" if vx > 0 else "left"
-            self.pente = vy/vx
+            self.direction = "right" if V.x > 0 else "left"
+            self.pente = V.y/V.x
         
             
     def __repr__(self):
@@ -294,72 +297,22 @@ class DemiDroite(Droite):
                 print("right, pente ",self.pente)
                 if self.pente > 0:
                     xmax = min(xmax, xA + (ymax-yA)/self.pente)
-                    ax.plot([xA,xmax],[yA,ymax],**kwds)                   
                 else:
                     xmax = min(xmax, xA + (yA-ymin)/abs(self.pente))
-                    ax.plot([xA,xmax],[yA,ymin],**kwds)
+                ax.plot([xA,xmax],[yA,yA + (xmax-xA)*self.pente],**kwds)  
             case 'left':
                 print("left, pente ", self.pente)
                 if self.pente > 0:
                     xmin = max(xmin, xA - (yA-ymin)/self.pente)
-                    ax.plot([xmin,xA],[ymin,yA],**kwds)                    
                 else:
                     xmin = max(xmin, xA -(ymax-yA)/abs(self.pente))
-                    ax.plot([xmin,xA],[ymax,yA],**kwds)
+                ax.plot([xmin, xA],[yA+(xmin-xA)*self.pente,yA],**kwds)
                     
     def bissectrice(self, d2):
         assert isinstance(d2, DemiDroite) and d2.origine == self.origine
-        return DemiDroite(self.origine, self.V + d2.V)
+        a,b = self.origine.x, self.origine.y
+        return DemiDroite(Point(a,b), (self.V + d2.V)/2)
 
-
-###############################################################################################
-"""
-class DemiDroite(Droite):
-    def __init__(self,A,V):
-        assert isinstance(A, Point) and isinstance(V, Vecteur)
-        self.V = V.unit()
-        self.origine = A
-        vx, vy = self.V.x, self.V.y
-        x0, y0 = A.x, A.y
-        self.a, self.b, self.c = vy, -vx, -y0*vx +x0*vy
-        if vx == 0: 
-            self.direction = "up" if vy > 0 else "down"
-        else:
-            self.direction = "right" if vx > 0 else "left"
-            self.pente = vy/vx
-            
-            
-    def __repr__(self):
-        return super().__repr__() +  ' Origine ' + str(self.origine) + self.direction
-
-    def draw(self, ax,**kwds):
-        print("In draw ")
-        xA, yA = self.origine.x, self.origine.y
-        xmin, xmax = ax.get_xlim()
-        ymin, ymax = ax.get_ylim()
-        match self.direction:
-            case 'up':
-                ax.plot([xA,xA],[yA,ymax])
-            case 'down':
-                ax.plot([xA,xA],[yA,ymin])
-            case 'right':
-                print("right, pente ",self.pente)
-                if self.pente > 0:
-                    xmax = min(xmax, xA + (ymax-yA)/self.pente)
-                    ax.plot([xA,xmax],[yA,ymax],**kwds)                   
-                else:
-                    xmax = min(xmax, xA + (yA-ymin)/abs(self.pente))
-                    ax.plot([xA,xmax],[yA,ymin],**kwds)
-            case 'left':
-                print("left, pente ", self.pente)
-                if self.pente > 0:
-                    xmin = max(xmin, xA - (yA-ymin)/self.pente)
-                    ax.plot([xmin,xA],[ymin,yA],**kwds)                    
-                else:
-                    xmin = max(xmin, xA -(ymax-yA)/abs(self.pente))
-                    ax.plot([xmin,xA],[ymax,yA],**kwds)
-"""                    
-################################################################################@
 
 def droite(p, v):
     """ Droite définie par un point p et un vecteur v """
