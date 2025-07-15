@@ -267,19 +267,18 @@ class DemiDroite(Droite):
     """ (y - y0)/(x-x0) = vy/vx """
     def __init__(self,A,V):
         assert isinstance(A, Point) and isinstance(V, Vecteur)
+        V.normalize()
         self.origine = A
         self.V       = V
         x0, y0 = A.x, A.y
         a = V.y; b = -V.x; c = y0 * V.x -x0 * V.y
         super().__init__(a,b,c)
-        self.V.normalize()
         if V.x == 0:
             self.direction = "up" if V.y > 0 else "down"
         else:
             self.direction = "right" if V.x > 0 else "left"
             self.pente = V.y/V.x
         
-            
     def __repr__(self):
         return super().__repr__() +  ' Origine ' + str(self.origine) + self.direction
 
@@ -294,14 +293,12 @@ class DemiDroite(Droite):
             case 'down':
                 ax.plot([xA,xA],[yA,ymin],**kwds)
             case 'right':
-                print("right, pente ",self.pente)
                 if self.pente > 0:
                     xmax = min(xmax, xA + (ymax-yA)/self.pente)
                 else:
                     xmax = min(xmax, xA + (yA-ymin)/abs(self.pente))
                 ax.plot([xA,xmax],[yA,yA + (xmax-xA)*self.pente],**kwds)  
             case 'left':
-                print("left, pente ", self.pente)
                 if self.pente > 0:
                     xmin = max(xmin, xA - (yA-ymin)/self.pente)
                 else:
@@ -312,7 +309,6 @@ class DemiDroite(Droite):
         assert isinstance(d2, DemiDroite) and d2.origine == self.origine
         a,b = self.origine.x, self.origine.y
         return DemiDroite(Point(a,b), (self.V + d2.V)/2)
-
 
 def droite(p, v):
     """ Droite définie par un point p et un vecteur v """

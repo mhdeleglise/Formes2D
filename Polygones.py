@@ -147,3 +147,9 @@ class Triangle(Polygone):
         P = self.centreCercleInscrit()
         r = P.distance(droite(A,B))
         return Cercle(P,r)
+
+    def bissectrice(self, i):
+        d1 = demi_droite(self.sommet(i),self.sommet(i+1))
+        d2 = demi_droite(self.sommet(i),self.sommet(i+2))
+        return d1.bissectrice(d2)
+    
