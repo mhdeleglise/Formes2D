@@ -21,7 +21,7 @@ class Polygone():
         ydata.append(self.sommets[0].y)
         ax.plot(xdata, ydata, '-o', color= color, ms=ms, **kwds)
         if not color is None:
-            plt.fill(xdata, ydata, color, alpha=0.30)  
+            plt.fill_between(xdata, ydata, color=color, alpha=0.30)  
         return
 
     def sommet(self,i):
@@ -139,7 +139,7 @@ class Triangle(Polygone):
         dBC = demi_droite(B,C)
         dBA = demi_droite(B,A)
         d2  = dBC.bissectrice(dBA)
-        return d1.droite().intersection(d2.droite(), nom)
+        return d1.intersection(d2, nom)
     
     def cercleInscrit(self):
         A = self.sommet(0)
