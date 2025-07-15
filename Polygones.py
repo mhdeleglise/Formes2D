@@ -152,4 +152,11 @@ class Triangle(Polygone):
         d1 = demi_droite(self.sommet(i),self.sommet(i+1))
         d2 = demi_droite(self.sommet(i),self.sommet(i+2))
         return d1.bissectrice(d2)
+
+    def cercleExInscrit(self,i):
+        d1 = self.bissectrice(i)
+        d2 = self.bissectrice(i+1)
+        d3 = d2.orthogonale(self.sommet(i+1))
+        P = d1.intersection(d3)
+        return Cercle(P,P.distance(droite(self.sommet(i+1),self.sommet(i+2))))
     
