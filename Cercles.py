@@ -31,4 +31,10 @@ class Cercle():
 
     def rotation(self, angle_degres, centre=None):
         self.centre.rotation(angle_degres, centre)
+
+    def cercle(A,B,C):
+        mAB = mediatrice(A,B)
+        mAC = mediatrice(A,C)
+        centre = mAB.intersection(mAC)
+        return Cercle(centre,A.distance(centre))
         
