@@ -130,16 +130,7 @@ class Triangle(Polygone):
         return projection(self.sommet(i),droite(self.sommet(i+1),self.sommet(i+2)),nom)
         
     def centreCercleInscrit(self,nom=None):
-        A=self.sommet(0)
-        B=self.sommet(1)
-        C=self.sommet(2)
-        dAB = demi_droite(A,B)
-        dAC = demi_droite(A,C)
-        d1  = dAB.bissectrice(dAC)
-        dBC = demi_droite(B,C)
-        dBA = demi_droite(B,A)
-        d2  = dBC.bissectrice(dBA)
-        return d1.intersection(d2, nom)
+        return self.bissectrice(0).intersection(self.bissectrice(1),nom)
     
     def cercleInscrit(self):
         A = self.sommet(0)
