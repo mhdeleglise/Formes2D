@@ -283,7 +283,6 @@ class DemiDroite(Droite):
         return super().__repr__() +  ' Origine ' + str(self.origine) + self.direction
 
     def draw(self, ax,**kwds):
-        print("In draw ")
         xA, yA = self.origine.x, self.origine.y
         xmin, xmax = ax.get_xlim()
         ymin, ymax = ax.get_ylim()
