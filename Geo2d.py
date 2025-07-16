@@ -69,7 +69,7 @@ class Point: #Espace affine euclidien de dimension 2
         self.y = y  
 
     def __repr__(self):
-        return f"Point({self.x},{self.y},{self.nom})"
+        return f"Point({self.x:.3f},{self.y:.3f},{self.nom})"
         
     def __add__(self,other):
         """ l'opérateur + devient l'addition de Points """
