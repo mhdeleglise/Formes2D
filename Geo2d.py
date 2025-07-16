@@ -9,7 +9,7 @@ def signe(x):
     return '-'
 
 class Vecteur:
-    def __init__(self,x=0,y=0):
+    def __init__(self,x:float =0,y:float =0):
         self.x = x
         self.y = y  
 
@@ -63,7 +63,7 @@ class Vecteur:
         
 class Point: #Espace affine euclidien de dimension 2
     
-    def __init__(self, x=0, y=0, nom=None):
+    def __init__(self, x:float =0, y: float =0, nom=None):
         self.nom = nom
         self.x = x
         self.y = y  
@@ -154,7 +154,7 @@ def milieu(A,B,nom=None):
 
 
 class Droite():
-    def __init__(self, a, b, c):
+    def __init__(self, a: float, b: float, c:float):
         """ La droite d'équation ax + by + c = 0 """
         r = sqrt(a*a + b*b)
         a, b, c = a/r, b/r, c/r
@@ -297,33 +297,37 @@ class DemiDroite(Droite):
         match self.direction:
             case 'up':
                 ax.plot([xA,xA],[yA,ymax],**kwds)
+                return
             case 'down':
                 ax.plot([xA,xA],[yA,ymin],**kwds)
+                return
             case 'right':
                 if self.pente > 0:
                     xmax = min(xmax, xA + (ymax-yA)/self.pente)
-                else:
+                elif self.pente < 0:
                     xmax = min(xmax, xA + (yA-ymin)/abs(self.pente))
                 ax.plot([xA,xmax],[yA,yA + (xmax-xA)*self.pente],**kwds)  
+                return
             case 'left':
                 if self.pente > 0:
                     xmin = max(xmin, xA - (yA-ymin)/self.pente)
-                else:
+                elif self.pente < 0:
                     xmin = max(xmin, xA -(ymax-yA)/abs(self.pente))
                 ax.plot([xmin, xA],[yA+(xmin-xA)*self.pente,yA],**kwds)
+                return
                     
     def bissectrice(self, d2):
         assert isinstance(d2, DemiDroite) and d2.origine == self.origine
         a,b = self.origine.x, self.origine.y
         return DemiDroite(Point(a,b), (self.V + d2.V)/2)
 
-def droite(p, v):
+def droite(p: Point, v:Vecteur):
     """ Droite définie par un point p et un vecteur v """
     x0, y0 = p
     a,  b  = v
     return Droite(b,-a,b*x0-a*y0)
     
-def demi_droite(A,B):
+def demi_droite(A: Point, B: Point):
     """ demi droite définie par un couple de points """
     v = vecteur(A,B)
     return DemiDroite(A, vecteur(A,B))
