@@ -69,7 +69,7 @@ class Point: #Espace affine euclidien de dimension 2
         self.y = y  
 
     def __repr__(self):
-        return f"Point({self.x:.3f},{self.y:.3f},{self.nom})"
+        return f"Point({self.x:.2f},{self.y:.2f},{self.nom})"
         
     def __add__(self,other):
         """ l'opérateur + devient l'addition de Points """
@@ -164,15 +164,18 @@ class Droite():
             b, c = -b, -c
         (self.a, self.b, self.c) =  a, b, c
         self.vu = -b, a
-            
+
+    def verticale(self):
+        return self.b == 0.0
+        
     def __repr__(self):
         a, b, c = self.a, self.b, self.c
         if self.b ==  0:
             """ a n'est pas nul et x = -c/a """
-            return "Droite x = {} {:.4f}".format(signe(-c/a), abs(c/a)) 
+            return "Droite verticale x= {self.a:.2f}"
         else:
             """ y = -c/b - a/b * x """
-            return "Droite y = {} {:.4f} x {} {:.4f}".format(signe(-a/b), abs(a/b), signe(-c/b), abs(c/b))
+            return f"Droite y = {signe(-a/b)} {abs(a/b):.3f} x {signe(-c/b)} {abs(c/b):.3f}"#.format(signe(-a/b), abs(a/b), signe(-c/b), abs(c/b))
             
     def __eq__(self, other):
         return self.a == other.a and self.b == other.b and  self.c == other.c
@@ -280,7 +283,12 @@ class DemiDroite(Droite):
             self.pente = V.y/V.x
         
     def __repr__(self):
-        return super().__repr__() +  ' Origine ' + str(self.origine) + self.direction
+        if not self.verticale():
+            return f"Origine: {self.origine}, Pente: {self.pente:.2f} Direction: {self.direction}"
+        else:
+            return f"Origine: {self.origine}, Verticale,  Direction: {self.direction}"
+            
+        
 
     def draw(self, ax,**kwds):
         xA, yA = self.origine.x, self.origine.y
