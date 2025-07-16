@@ -6,6 +6,9 @@ class Cercle():
     def __init__(self, centre, r):
         self.centre = centre
         self.rayon = r
+
+    def __repr__(self):
+        return f"Cercle, centre:{self.centre}, rayon:{self.rayon:.3f}"
         
     def draw(self, ax, color=None, facecolor=None,**kwds):
         theta = np.linspace(0, 2*np.pi, 100)
