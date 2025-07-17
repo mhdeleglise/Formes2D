@@ -37,10 +37,6 @@ class Vecteur:
         ''' L'opérateur xor ^ est comme le produit vectoriel '''
         return self.x * v.y - v.x * self.y
 
-    def det(u,v):
-        ''' Le determinant , même chose que le précédent ''' 
-        return u.x * v.y - v.x * u.y
-
     def normalize(self):
         r = sqrt(self.x**2 + self.y**2)
         self.x /= r
@@ -58,7 +54,10 @@ class Vecteur:
             return a
         else:
             return 2*pi-a
-        
+
+def det(u: Vecteur, v: Vecteur):
+    ''' Le determinant, même chose que le précédent ''' 
+    return u.x * v.y - v.x * u.y
 #######################################################################################
         
 class Point: #Espace affine euclidien de dimension 2
@@ -230,7 +229,7 @@ class Droite():
         a, b, x, y = self.a, self.b, P.x, P.y
         return Droite(a, b, -(a*x+b*y))
 
-    def orthogonale(self,P):
+    def orthogonale(self,P: Point):
         """ La perpendiculaire à self passant par le point P """
         a, b, x, y = self.a, self.b, P.x, P.y   
         return Droite(-b, a, b*x - a*y)
@@ -316,10 +315,11 @@ class DemiDroite(Droite):
                 ax.plot([xmin, xA],[yA+(xmin-xA)*self.pente,yA],**kwds)
                 return
                     
-    def bissectrice(self, d2):
-        assert isinstance(d2, DemiDroite) and d2.origine == self.origine
+    def bissectrice(self, d):
+        """ La bissectrice de self et d """
+        assert isinstance(d, DemiDroite) and d.origine == self.origine
         a,b = self.origine.x, self.origine.y
-        return DemiDroite(Point(a,b), (self.V + d2.V)/2)
+        return DemiDroite(Point(a,b), (self.V + d.V)/2)
 
 def droite(p: Point, v:Vecteur):
     """ Droite définie par un point p et un vecteur v """
@@ -344,12 +344,12 @@ class Segment():
         ax.plot([self.A.x,self.B.x],[self.A.y,self.B.y],**kwds)
 
 
-def vecteur(A,B):
+def vecteur(A:Point, B:Point):
     """ C'est la même chose que B-A """
     assert isinstance(A,Point) and isinstance(B, Point)
     return Vecteur(B.x-A.x, B.y-A.y)
 
-def droite(A,B):
+def droite(A : Point, B: Point):
     if not isinstance(A,Point) or not isinstance(B,Point):
         raise TypeError("droite(A,B): A,B ne sont pas deux points")
     else:
@@ -363,8 +363,8 @@ def rotation(B,theta,A=PointO):
 
  ##########################################################################################
 
-def symetrie(t, p, nom = None):
-    """ symétries centrale de centre p """
+def symetrie(t, p : Point, nom = None):
+    """ symétrie centrale de centre p """
     a, b = p.x, p.y
     if isinstance(t,Point):
         res = p + (p - t)
@@ -375,7 +375,7 @@ def symetrie(t, p, nom = None):
         return Droite(-u, -v, w + 2*u*a + 2*v*b)
 
 def retournement(obj, d, nom=None):
-    """ Les retournements autour de d """
+    """ Retournement d'un point ou d'une droite  autour de la droite d  """
     a, b, c = d.a, d.b, d.c
     if isinstance(obj, Droite):
         u,v,w =  obj.a, obj.b, obj.c
@@ -386,13 +386,13 @@ def retournement(obj, d, nom=None):
         t= -2*(a*x + b*y + c)/(a*a + b*b)
         return Point(x + t*a, y + t*b, nom)
 
-def projection(P, d, nom = None):
+def projection(P: Point, d:Droite, nom = None):
         """ Renvoie la projection orthogonale de P sur d """
         a, b, c = d.a, d.b, d.c
         lbd = -(a * P.x + b * P.y + c)/(a*a + b*b)
         return Point(P.x + lbd * a, P.y + lbd * b, nom)
 
-def parallele(d, P):
+def parallele(d: Droite, P: Point):
     """ La parallèle à d passant par P """
     a,b,x,y = d.a, d.b, P.x, P.y
     return Droite(a, b, -(a*x+b*y))
