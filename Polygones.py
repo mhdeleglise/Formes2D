@@ -88,7 +88,7 @@ class Triangle(Polygone):
     def aire(self):
         u = vecteur(self.sommets[0],self.sommets[1])
         v = vecteur(self.sommets[0],self.sommets[2])
-        return abs(Vecteur.det(u,v))/2
+        return abs(det(u,v))/2
 
     def barycentre(self,nom=None):
         u = self.sommets[0]
