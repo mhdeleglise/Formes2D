@@ -38,11 +38,13 @@ class Vecteur:
         return self.x * v.y - v.x * self.y
 
     def normalize(self):
+        """ Transforme ce vecteur en un vecteur unitaire (cad. de longueur 1) """
         r = sqrt(self.x**2 + self.y**2)
         self.x /= r
         self.y /= r
     
     def unit(self):
+        """ Renvoie le vecteur unitaire correspondant, self n'est pas modifié """
         r = sqrt(self.x**2 + self.y**2)
         return Vecteur(self.x/r, self.y/r)
 
@@ -127,8 +129,8 @@ class Point: #Espace affine euclidien de dimension 2
         else:
             raise TypeError("La symétrie centrale n'est implémentée que pour un Point ou une Droite")
 
-def barycentre(listePoints, listeCoeffs=[], nom=None):
-    """ Si la liste des coefficients est vide, on leur attribue la valeur 1 """
+def barycentre(listePoints : list[Point], listeCoeffs : list[float] =[], nom=None) -> Point:
+    """ Si la liste des coefficients est vide, on attribue à chacun d'eux la valeur 1 """
     n = len(listePoints)
     assert n > 0
     if len(listeCoeffs) == 0:
