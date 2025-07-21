@@ -237,6 +237,7 @@ class Droite():
         return Droite(-b, a, b*x - a*y)
 
     def retournement(self, obj):
+        """ L'image par retournement d'un objet, point ou droite, autour de self """
         a, b, c = self.a, self.b, self.c
         if isinstance(obj, Point):
             x, y = obj.x, obj.y
@@ -248,6 +249,7 @@ class Droite():
             return Droite(u + t*a, v + t*b, w + t*c)         
 
     def intersection(self,d, nom=None):
+        """ Intersection de self avec la droite d """        
         a, b, c = self.a, self.b, self.c
         u, v, w = d.a, d.b, d.c
         delta = b*u -a*v
