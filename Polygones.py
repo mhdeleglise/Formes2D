@@ -55,12 +55,15 @@ class Polygone():
         p = self.sommets
         return p[0].distance(p[-1]) + sum ([p[i].distance(p[i+1]) for i in range(n-1)]) 
 
-    def aire(self):
+    def aire_algebrique(self):
         res = 0.0
         for i in range(self.n-2):
-            a = Triangle(self.sommets[0], self.sommets[i+1], self.sommets[i+2]).aire()
+            a = Triangle(self.sommets[0], self.sommets[i+1], self.sommets[i+2]).aire_algebrique()
             res += a
         return res
+
+    def aire(self):
+        return abs(self.aire_algebrique())
 
     def barycentre(self, nom=None):
         gres = Point(0,0)
@@ -76,7 +79,20 @@ class Polygone():
         gres = gres/s
         gres.nom = nom
         return gres
-            
+
+    def side(self,i):
+        return vecteur(self.sommet(i),self.sommet(i+1))
+
+    def is_convexe(self):
+        orientation0 = 1 if det(self.side(0),self.side(1)) > 0 else -1
+        for i in range(1,self.n-2):
+            if det(self.side(i),self.side(i+1)) == 0:
+                continue
+            orientationi = 1 if det(self.side(i),self.side(i+1)) > 0 else -1
+            if orientationi != orientation0:
+                return False
+        return True
+
 class Triangle(Polygone): 
     def __init__(self, A, B, C):
         self.n = 3
@@ -85,10 +101,13 @@ class Triangle(Polygone):
     def __repr__(self):
         return 'Triangle' + str(self.sommets)
 
-    def aire(self):
+    def aire_algebrique(self):
         u = vecteur(self.sommets[0],self.sommets[1])
         v = vecteur(self.sommets[0],self.sommets[2])
-        return abs(det(u,v))/2
+        return det(u,v)/2
+
+    def aire(self):
+        return abs(self.aire_algebrique())
 
     def barycentre(self,nom=None):
         u = self.sommets[0]
