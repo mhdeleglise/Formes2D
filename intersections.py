@@ -30,22 +30,18 @@ def doIntersect(p1,q1,p2,q2):
     # special cases
     # p1, q1 and p2 are collinear and p2 lies on segment p1q1
     if o1 == 0 and onSegment(p1,q1,p2):
-        print(1)
         return True
 
     # p1, q1 and q2 are collinear and q2 lies on segment p1q1
     if o2 == 0 and onSegment(p1,q1,q2):
-        print(2)
         return True
 
     # p2, q2 and p1 are collinear and p1 lies on segment p2q2
     if o3 == 0 and onSegment(p2,q2,p1):
-        print(3)
         return True
 
     # p2, q2 and q1 are collinear and q1 lies on segment p2q2 
     if o4 == 0 and onSegment(p2,q2,q1):
-        print(4)
         return True
 
     return False
