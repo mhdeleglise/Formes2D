@@ -24,7 +24,7 @@ class Vecteur:
         return Vecteur(self.x / scalar, self.y / scalar)
 
     def __eq__self(other):
-        return self.x == other.x and self.y = other.y
+        return self.x == other.x and self.y == other.y
     
     def __mul__(u,t):
         if isinstance(t,Vecteur):
