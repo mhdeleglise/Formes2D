@@ -65,6 +65,26 @@ class Polygone():
     def aire(self):
         return abs(self.aire_algebrique())
 
+    def is_simple(self):
+        n = self.n
+        for i in range(1, n + 1):
+            for j in range(i + 1, n + 1):
+                if (j != (i % n) + 1) and (j != (i - 2) % n + 1):
+                    if doIntersect(self.sommet(i),self.sommet(i+1),self.sommet(j),self.sommet(j+1)):
+                       return False
+        return True    
+
+    def multiplicities(self):
+        res = []
+        n = P.n
+        for i in range(1, n + 1):
+            for j in range(i + 1, n + 1):
+                # Vérification des adjacences modulo n
+                if (j != (i % n) + 1) and (j != (i - 2) % n + 1):
+                    if doIntersect(P.sommet(i),P.sommet(i+1),P.sommet(j),P.sommet(j+1)):
+                       res.append(droite(P.sommet(i),P.sommet(i+1)).intersection(droite(P.sommet(j),P.sommet(j+1))))
+        return res
+
     def barycentre(self, nom=None):
         gres = Point(0,0)
         s = 0
