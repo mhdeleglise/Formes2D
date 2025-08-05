@@ -1,4 +1,5 @@
 from math import cos as cos, sin as sin, sqrt as sqrt, acos as acos, pi as pi, degrees as degrees
+from intersections import *
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -22,6 +23,9 @@ class Vecteur:
     def __truediv__(self, scalar):
         return Vecteur(self.x / scalar, self.y / scalar)
 
+    def __eq__self(other):
+        return self.x == other.x and self.y = other.y
+    
     def __mul__(u,t):
         if isinstance(t,Vecteur):
             return u.x * t.x +  u.y * t.y
@@ -88,6 +92,9 @@ class Point: #Espace affine euclidien de dimension 2
     def __truediv__(self, scalar):
         return Point(self.x / scalar, self.y / scalar)
 
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+    
     def __sub__(self, B):
         """ Le vecteur B-self """
         return Vecteur(self.x - B.x, self.y - B.y)
@@ -347,7 +354,12 @@ class Segment():
     def draw(self, ax, **kwds):
         ax.plot([self.A.x,self.B.x],[self.A.y,self.B.y],**kwds)
 
+    def inter(self, u):
+        return doIntersect(self.A, self.B, u.A, u.B)
 
+    def __eq__(self,other):
+        reurn (self.A == other.A and self.B == other.B) or (self.A == other.B and self.B == other.A)
+        
 def vecteur(A:Point, B:Point):
     """ C'est la même chose que B-A """
     assert isinstance(A,Point) and isinstance(B, Point)
