@@ -1,5 +1,5 @@
 from math import cos as cos, sin as sin, sqrt as sqrt, acos as acos, pi as pi, degrees as degrees
-from intersections import *
+from intersection import *
 import numpy as np
 import matplotlib.pyplot as plt
 
