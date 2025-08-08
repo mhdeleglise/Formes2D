@@ -21,7 +21,7 @@ class Polygone():
         ydata.append(self.sommets[0].y)
         ax.plot(xdata, ydata, '-o', color= color, ms=ms, **kwds)
         if not color is None:
-            plt.fill_between(xdata, ydata, color=color, alpha=0.30)  
+            ax.fill(xdata, ydata, facecolor=color, alpha=0.30)  
         return
 
     def sommet(self,i):
