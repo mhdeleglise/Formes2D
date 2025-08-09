@@ -127,6 +127,10 @@ class Point: #Espace affine euclidien de dimension 2
         self.x += V.x
         self.y += V.y
 
+    def translation(self, V, nom=None):
+        """ image de self par la translation de vecteur """
+        return Point(self.x + V.x, self.y + V.y, nom)
+
     def symetrie_centrale(self, other):
         if isinstance(other, Point):
             return self + (self - other)
