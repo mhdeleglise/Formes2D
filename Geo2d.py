@@ -99,10 +99,10 @@ class Point: #Espace affine euclidien de dimension 2
         """ Le vecteur B-self """
         return Vecteur(self.x - B.x, self.y - B.y)
 
-    def draw(self, ax, dx=0.0, dy=0.0, s = 10, color=None, namecolor='black', **kwds):
-        plt.scatter(self.x, self.y, s, color=color, **kwds)
+    def draw(self, ax, dx=0.0, dy=0.0, s = 10, color=None, namecolor='black', fontsize=12, **kwds):
+        ax.scatter(self.x, self.y, s, color=color, **kwds)
         if not self.nom is None:
-            ax.text(self.x + dx, self.y + dy, self.nom, color=namecolor, clip_on=True)
+            ax.text(self.x + dx, self.y + dy, self.nom, color=namecolor, clip_on=True, fontsize=fontsize)
             
     def rename(self,nom):
         self.nom=nom
